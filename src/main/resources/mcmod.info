@@ -1,0 +1,15 @@
+[
+{
+  "modid": "zpmmod",
+  "name": "Zero Point Module Mod",
+  "description": "Lorem ipsum.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["MayusYT"],
+  "credits": "MayusYT",
+  "logoFile": "",
+  "screenshots": []
+}
+]

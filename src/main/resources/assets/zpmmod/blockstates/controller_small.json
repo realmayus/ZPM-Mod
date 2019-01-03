@@ -1,0 +1,27 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "cube",
+    "textures": {
+      "particle": "zpmmod:blocks/controller_small",
+      "north": "zpmmod:blocks/controller_small",
+      "south": "zpmmod:blocks/side",
+      "west": "zpmmod:blocks/side",
+      "east": "zpmmod:blocks/side",
+      "up": "zpmmod:blocks/top",
+      "down": "zpmmod:blocks/bottom"
+    }
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}],
+    "facing": {
+      "north": {},
+      "south": {"y": 180},
+      "west": {"y": 270},
+      "east": {"y": 90},
+      "up": {"x": -90},
+      "down": {"x": 90}
+    }
+  }
+}
