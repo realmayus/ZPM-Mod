@@ -1,4 +1,4 @@
-package mayus.zpmmod.BlockControllerSmall;
+package mayus.zpmmod.BlockControllerLarge;
 
 
 import mayus.zpmmod.ZPMMod;
@@ -22,7 +22,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockControllerSmall extends Block {
+public class BlockControllerLarge extends Block {
 
 
     //Creation of a so called "BlockState" for saving the direction the block is placed in
@@ -30,28 +30,29 @@ public class BlockControllerSmall extends Block {
 
 
     //Save the combinations of the equipped items as an Integer (for the textures:
-    // 1 | empty
-    // 2 | depleted
-    // 3 | full
-    public static final PropertyInteger TEXTURE = PropertyInteger.create("texture", 1, 3);
+    // 111  | empty, empty, empty
+    // 112  | empty, empty, depleted
+    // 123  | empty, depleted, full
+    // and so on...
+    public static final PropertyInteger TEXTURE = PropertyInteger.create("texture", 111, 333);
 
     //Creation of a constant for saving texture path and ingame name
-    public static final ResourceLocation CONTROLLER_SMALL = new ResourceLocation(ZPMMod.MODID, "controller_small");
+    public static final ResourceLocation CONTROLLER_LARGE = new ResourceLocation(ZPMMod.MODID, "controller_large");
 
 
     /**
      * Constructor
      */
-    public BlockControllerSmall() {
+    public BlockControllerLarge() {
 
         //Sound the Block makes by harvesting or walking over it
         super(Material.IRON);
 
         //Setting the RegistryName to the constant 'CONTROLLER_SMALL'
-        setRegistryName(CONTROLLER_SMALL);
+        setRegistryName(CONTROLLER_LARGE);
 
         //Setting a 'translation key' for referring to it in a language file (for setting the localized name of the block)
-        setTranslationKey(ZPMMod.MODID + ".controller_small");
+        setTranslationKey(ZPMMod.MODID + ".controller_large");
 
         //Setting the level when the block can be harvested
         setHarvestLevel("pickaxe", 1);
@@ -118,6 +119,4 @@ public class BlockControllerSmall extends Block {
     public int getMetaFromState(IBlockState state) {
         return state.getValue(FACING).getIndex();
     }
-
-
 }

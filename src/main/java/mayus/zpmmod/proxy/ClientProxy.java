@@ -15,6 +15,7 @@ import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.animation.ITimeValue;
 import net.minecraftforge.common.model.animation.IAnimationStateMachine;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -25,6 +26,12 @@ public class ClientProxy extends CommonProxy {
     public void preInit(FMLPreInitializationEvent e) {
         super.preInit(e);
         OBJLoader.INSTANCE.addDomain(ZPMMod.MODID);
+    }
+
+    @Override
+    public void init(FMLInitializationEvent e) {
+        ModItems.registerRender();
+        super.init(e);
     }
 
     @SubscribeEvent

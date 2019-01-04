@@ -1,1 +1,6 @@
 itemGroup.zpmmod=Zero Point Module Mod
+
+tile.zpmmod.controller_small.name=ZPM Controller (Small)
+tile.zpmmod.controller_large.name=ZPM Controller (Large)
+
+item.zpm.name=ZPM

@@ -1,7 +1,7 @@
 package mayus.zpmmod;
 
+import mayus.zpmmod.BlockControllerLarge.BlockControllerLarge;
 import mayus.zpmmod.BlockControllerSmall.BlockControllerSmall;
-import mayus.zpmmod.lightblock.BlockLightBlock;
 import net.minecraft.block.Block;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -14,6 +14,9 @@ public class ModBlocks {
     @GameRegistry.ObjectHolder("zpmmod:controller_small")
     public static BlockControllerSmall blockControllerSmall;
 
+    @GameRegistry.ObjectHolder("zpmmod:controller_large")
+    public static BlockControllerLarge blockControllerLarge;
+
 
     /**
      * Initializes the Block models
@@ -21,6 +24,7 @@ public class ModBlocks {
     @SideOnly(Side.CLIENT)
     public static void initModels() {
         blockControllerSmall.initModel();
+        blockControllerLarge.initModel();
     }
 
 
@@ -29,6 +33,7 @@ public class ModBlocks {
      */
     public static void register(IForgeRegistry<Block> registry) {
         registry.register(new BlockControllerSmall());
+        registry.register(new BlockControllerLarge());
     }
 
 

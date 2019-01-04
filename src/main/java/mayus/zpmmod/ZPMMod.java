@@ -24,7 +24,7 @@ public class ZPMMod {
     public static CreativeTabs creativeTab = new CreativeTabs("zpmmod") {
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(ModBlocks.blockLightBlock);
+            return new ItemStack(ModBlocks.blockControllerSmall);
         }
     };
 

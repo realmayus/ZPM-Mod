@@ -3,12 +3,12 @@
   "defaults": {
     "model": "cube",
     "textures": {
-      "particle": "zpmmod:blocks/controller_small_top",
+      "particle": "zpmmod:blocks/controller_large_top",
       "north": "zpmmod:blocks/controller_side",
       "south": "zpmmod:blocks/controller_side",
       "west": "zpmmod:blocks/controller_side",
       "east": "zpmmod:blocks/controller_side",
-      "up": "zpmmod:blocks/controller_small_top",
+      "up": "zpmmod:blocks/controller_large_top",
       "down": "zpmmod:blocks/controller_bottom"
     }
   },
