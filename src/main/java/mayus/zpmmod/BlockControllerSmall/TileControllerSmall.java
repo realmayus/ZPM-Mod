@@ -135,7 +135,12 @@ public class TileControllerSmall extends TileEntity implements IGuiTile, ITickab
     }
 
     public void readRestorableFromNBT(NBTTagCompound compound) {
-        //energyStorage.setEnergy(compound.getInteger("energy"));
+        if(compound.hasKey("itemsIn")) {
+            inputHandler.deserializeNBT((NBTTagCompound) compound.getTag("itemsIn"));
+        }
+        if(compound.hasKey("itemsOut")) {
+            outputHandler.deserializeNBT((NBTTagCompound) compound.getTag("itemsOut"));
+        }
     }
 
     @Override
@@ -146,7 +151,8 @@ public class TileControllerSmall extends TileEntity implements IGuiTile, ITickab
     }
 
     public void writeRestorableToNBT(NBTTagCompound compound) {
-        // compound.setInteger("energy", energyStorage.getEnergyStored());
+        compound.setTag("itemsIn", inputHandler.serializeNBT());
+        compound.setTag("itemsOut", outputHandler.serializeNBT());
     }
 
 
