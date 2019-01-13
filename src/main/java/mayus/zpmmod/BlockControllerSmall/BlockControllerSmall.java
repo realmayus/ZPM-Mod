@@ -1,8 +1,11 @@
 package mayus.zpmmod.BlockControllerSmall;
 
 
+import mayus.zpmmod.BlockControllerLarge.TileControllerLarge;
 import mayus.zpmmod.ZPMMod;
+import mayus.zpmmod.util.IGuiTile;
 import net.minecraft.block.Block;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
@@ -12,6 +15,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
@@ -22,7 +26,9 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockControllerSmall extends Block {
+import javax.annotation.Nullable;
+
+public class BlockControllerSmall extends Block implements ITileEntityProvider {
 
 
     //Creation of a so called "BlockState" for saving the direction the block is placed in
@@ -73,23 +79,35 @@ public class BlockControllerSmall extends Block {
     }
 
 
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new TileControllerSmall();
+
+    }
     /**
      * EVENT that is called when you right-click the block,
      */
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+// Only execute on the server
+        if (world.isRemote) {
+            return true;
+        }
+        TileEntity te = world.getTileEntity(pos);
+        if (!(te instanceof IGuiTile)) {
 
-        //Do actions only on one side (prevent from doing it multiple times)
-        if(worldIn.isRemote) {
-            if(facing.equals(EnumFacing.UP)) {
-                playerIn.sendMessage(new TextComponentString("You just clicked on the top of the controller!"));
-            } else {
-                playerIn.sendMessage(new TextComponentString("You have to click on the top!"));
+            return false;
+        }
+        if(!player.isSneaking()) {
+            if(facing == EnumFacing.UP) {
+                player.openGui(ZPMMod.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
             }
+        } else {
+            return false;
         }
 
-
-        return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
+        return true;
     }
 
     /**

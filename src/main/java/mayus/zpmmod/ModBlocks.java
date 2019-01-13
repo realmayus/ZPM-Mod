@@ -1,7 +1,10 @@
 package mayus.zpmmod;
 
 import mayus.zpmmod.BlockControllerLarge.BlockControllerLarge;
+import mayus.zpmmod.BlockControllerLarge.TileControllerLarge;
 import mayus.zpmmod.BlockControllerSmall.BlockControllerSmall;
+
+import mayus.zpmmod.BlockControllerSmall.TileControllerSmall;
 import net.minecraft.block.Block;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -34,6 +37,8 @@ public class ModBlocks {
     public static void register(IForgeRegistry<Block> registry) {
         registry.register(new BlockControllerSmall());
         registry.register(new BlockControllerLarge());
+        GameRegistry.registerTileEntity(TileControllerLarge.class, ZPMMod.MODID + "_controller_large");
+        GameRegistry.registerTileEntity(TileControllerSmall.class, ZPMMod.MODID + "_controller_small");
     }
 
 

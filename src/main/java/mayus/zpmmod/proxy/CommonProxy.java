@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.util.concurrent.ListenableFuture;
 import mayus.zpmmod.ModBlocks;
 import mayus.zpmmod.ModItems;
+import mayus.zpmmod.ZPMMod;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -16,6 +17,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 import javax.annotation.Nullable;
 
@@ -27,6 +29,7 @@ public class CommonProxy {
     }
 
     public void init(FMLInitializationEvent e) {
+        NetworkRegistry.INSTANCE.registerGuiHandler(ZPMMod.instance, new GuiHandler());
     }
 
     public void postInit(FMLPostInitializationEvent e) {
