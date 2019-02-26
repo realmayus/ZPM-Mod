@@ -1,9 +1,12 @@
 package mayus.zpmmod.blockControllerLarge;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -55,6 +58,15 @@ public class ContainerControllerLarge extends Container {
     @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
+
+        final SPacketUpdateTileEntity updatePacket = te != null ? te.getUpdatePacket() : null;
+        if (updatePacket != null) {
+            for (IContainerListener containerListener : listeners) {
+                if (containerListener instanceof EntityPlayerMP) {
+                    ((EntityPlayerMP) containerListener).connection.sendPacket(updatePacket);
+                }
+            }
+        }
 
        // if (te.getEnergy() != te.getClientEnergy()) {
         //    te.setClientEnergy(te.getEnergy());
