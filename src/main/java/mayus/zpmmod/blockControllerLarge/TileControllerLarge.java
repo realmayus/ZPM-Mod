@@ -1,22 +1,17 @@
-package mayus.zpmmod.BlockControllerLarge;
+package mayus.zpmmod.blockControllerLarge;
 
 
-import mayus.zpmmod.ItemZPM.ItemZPM;
-import mayus.zpmmod.ModConfig;
+import mayus.zpmmod.itemZPM.ItemZPM;
 import mayus.zpmmod.util.IGuiTile;
-import mayus.zpmmod.util.MyEnergyStorage;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
@@ -27,6 +22,7 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
 
 
     private int clientEnergy = -1;
+    public boolean enabled = true;
 
     @Override
     public void update() {
@@ -116,6 +112,7 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
 
     public void readRestorableFromNBT(NBTTagCompound compound) {
         //energyStorage.setEnergy(compound.getInteger("energy"));
+        enabled = compound.getBoolean("enabled");
     }
 
     @Override
@@ -127,6 +124,7 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
 
     public void writeRestorableToNBT(NBTTagCompound compound) {
        // compound.setInteger("energy", energyStorage.getEnergyStored());
+        compound.setBoolean("enabled", enabled);
     }
 
 }

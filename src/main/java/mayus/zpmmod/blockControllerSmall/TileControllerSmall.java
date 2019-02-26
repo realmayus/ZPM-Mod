@@ -1,25 +1,18 @@
-package mayus.zpmmod.BlockControllerSmall;
+package mayus.zpmmod.blockControllerSmall;
 
 
-import mayus.zpmmod.ItemZPM.ItemZPM;
-import mayus.zpmmod.ModConfig;
-import mayus.zpmmod.util.EnergyStorageItem;
+import mayus.zpmmod.itemZPM.ItemZPM;
 import mayus.zpmmod.util.IGuiTile;
-import mayus.zpmmod.util.MyEnergyStorage;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;

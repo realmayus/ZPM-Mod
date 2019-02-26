@@ -1,19 +1,20 @@
-package mayus.zpmmod.BlockControllerLarge;
+package mayus.zpmmod.blockControllerSmall;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class ContainerControllerLarge extends Container {
+public class ContainerControllerSmall extends Container {
 
-    private TileControllerLarge te;
+    private TileControllerSmall te;
 
 
-    public ContainerControllerLarge(IInventory playerInventory, TileControllerLarge te) {
+    public ContainerControllerSmall(IInventory playerInventory, TileControllerSmall te) {
         this.te = te;
         addPlayerSlots(playerInventory);
         addCustomSlots();
@@ -45,11 +46,7 @@ public class ContainerControllerLarge extends Container {
     private void addCustomSlots() {
         IItemHandler itemHandler = this.te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 
-        int slotIndex = 0;
-        addSlotToContainer(new SlotItemHandler(itemHandler, slotIndex++, 80, 15));
-        addSlotToContainer(new SlotItemHandler(itemHandler, slotIndex++, 49, 51));
-        addSlotToContainer(new SlotItemHandler(itemHandler, slotIndex++, 112, 51));
-
+        addSlotToContainer(new SlotItemHandler(itemHandler, 0, 80, 31));
     }
 
     @Override
@@ -66,5 +63,42 @@ public class ContainerControllerLarge extends Container {
                 }*/
             }
        // }
+
+
+    /**
+     * This is actually needed in order to achieve shift click functionality in the Controller GUI. If this method isn't overridden, the game crashes.
+    */
+    @Override
+    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.inventorySlots.get(index);
+
+        if (slot != null && slot.getHasStack()) {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+
+            if (index < TileControllerSmall.SIZE) {
+                if (!this.mergeItemStack(itemstack1, TileControllerSmall.SIZE, this.inventorySlots.size(), true)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (!this.mergeItemStack(itemstack1, 0, TileControllerSmall.SIZE, false)) {
+                return ItemStack.EMPTY;
+            }
+
+            if (itemstack1.isEmpty()) {
+                slot.putStack(ItemStack.EMPTY);
+            } else {
+                slot.onSlotChanged();
+            }
+        }
+
+        return itemstack;
     }
+
+
+}
+
+
+
+
 

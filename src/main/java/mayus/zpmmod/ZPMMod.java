@@ -50,4 +50,7 @@ public class ZPMMod {
     public void postInit(FMLPostInitializationEvent e) {
         proxy.postInit(e);
     }
+
+
+    //TODO:  Abfragen des States am Server, sodass sich das GUI updatet.
 }

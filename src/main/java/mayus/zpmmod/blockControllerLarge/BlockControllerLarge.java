@@ -1,4 +1,4 @@
-package mayus.zpmmod.BlockControllerLarge;
+package mayus.zpmmod.blockControllerLarge;
 
 
 

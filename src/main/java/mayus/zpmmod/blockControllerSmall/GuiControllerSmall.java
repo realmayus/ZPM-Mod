@@ -1,8 +1,13 @@
-package mayus.zpmmod.BlockControllerSmall;
+package mayus.zpmmod.blockControllerSmall;
 
 import mayus.zpmmod.ZPMMod;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
+
+import java.io.IOException;
 
 public class GuiControllerSmall extends GuiContainer {
 
@@ -36,5 +41,15 @@ public class GuiControllerSmall extends GuiContainer {
 
         //Render any tooltips
         renderHoveredToolTip(mouseX, mouseY);
+    }
+
+    @Override
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+        super.mouseClicked(mouseX, mouseY, mouseButton);
+        if(mouseButton == 0) {
+            if(mouseX >= 148 && mouseX <= 167 && mouseY >= 56 && mouseY <= 75) {
+                Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+            }
+        }
     }
 }

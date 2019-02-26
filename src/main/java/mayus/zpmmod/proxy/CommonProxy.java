@@ -5,6 +5,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import mayus.zpmmod.ModBlocks;
 import mayus.zpmmod.ModItems;
 import mayus.zpmmod.ZPMMod;
+import mayus.zpmmod.networking.PacketHandler;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -25,7 +26,7 @@ import javax.annotation.Nullable;
 public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent e) {
-
+        PacketHandler.registerMessages();
     }
 
     public void init(FMLInitializationEvent e) {

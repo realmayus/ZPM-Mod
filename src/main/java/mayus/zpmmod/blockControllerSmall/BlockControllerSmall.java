@@ -1,7 +1,6 @@
-package mayus.zpmmod.BlockControllerSmall;
+package mayus.zpmmod.blockControllerSmall;
 
 
-import mayus.zpmmod.BlockControllerLarge.TileControllerLarge;
 import mayus.zpmmod.ZPMMod;
 import mayus.zpmmod.util.IGuiTile;
 import net.minecraft.block.Block;
@@ -20,7 +19,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;

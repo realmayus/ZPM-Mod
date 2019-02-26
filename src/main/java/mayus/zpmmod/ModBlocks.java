@@ -1,10 +1,10 @@
 package mayus.zpmmod;
 
-import mayus.zpmmod.BlockControllerLarge.BlockControllerLarge;
-import mayus.zpmmod.BlockControllerLarge.TileControllerLarge;
-import mayus.zpmmod.BlockControllerSmall.BlockControllerSmall;
+import mayus.zpmmod.blockControllerLarge.BlockControllerLarge;
+import mayus.zpmmod.blockControllerLarge.TileControllerLarge;
+import mayus.zpmmod.blockControllerSmall.BlockControllerSmall;
 
-import mayus.zpmmod.BlockControllerSmall.TileControllerSmall;
+import mayus.zpmmod.blockControllerSmall.TileControllerSmall;
 import net.minecraft.block.Block;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;

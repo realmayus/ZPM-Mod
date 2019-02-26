@@ -1,4 +1,4 @@
-package mayus.zpmmod.ItemZPM;
+package mayus.zpmmod.itemZPM;
 
 import mayus.zpmmod.ZPMMod;
 import mayus.zpmmod.util.EnergyCapabilityProvider;

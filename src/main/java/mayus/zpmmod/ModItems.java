@@ -1,8 +1,8 @@
 package mayus.zpmmod;
 
-import mayus.zpmmod.BlockControllerLarge.BlockControllerLarge;
-import mayus.zpmmod.BlockControllerSmall.BlockControllerSmall;
-import mayus.zpmmod.ItemZPM.ItemZPM;
+import mayus.zpmmod.blockControllerLarge.BlockControllerLarge;
+import mayus.zpmmod.blockControllerSmall.BlockControllerSmall;
+import mayus.zpmmod.itemZPM.ItemZPM;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
