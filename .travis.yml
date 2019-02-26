@@ -1,8 +1,18 @@
 language: java
-jdk: oraclejdk8
+jdk:
+  - oraclejdk8
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+  - rm -f  $HOME/.gradle/caches/minecraft/deobfedDeps/providedDummy.jar
+  - rm -f  $HOME/.gradle/caches/minecraft/deobfedDeps/compileDummy.jar
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
 before_install:
-  - wget https://files.minecraftforge.net/maven/net/minecraftforge/forge/1.12.2-14.23.5.2784/forge-1.12.2-14.23.5.2784-mdk.zip
-  - unzip -n forge-1.12.2-14.23.3.2661-mdk.zip
-  - rm forge-1.12.2-14.23.3.2661-mdk.zip
-install: ./gradlew setupCiWorkspace
-script: ./gradlew build
+  - chmod +x gradlew
+install:
+  - ./gradlew setupCIWorkspace
+script:
+  - ./gradlew check
