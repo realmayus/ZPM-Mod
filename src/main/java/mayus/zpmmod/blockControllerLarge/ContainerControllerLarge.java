@@ -15,7 +15,13 @@ public class ContainerControllerLarge extends Container {
 
     public TileControllerLarge te;
 
-    public Boolean enabled = true;
+    /**
+     * 0 = Ignore Redstone
+     * 1 = Active on Redstone
+     * 2 = Not active on Redstone
+     */
+    public int redstoneBehaviour = 1;
+    public boolean isEnabled = true;
 
     public ContainerControllerLarge(IInventory playerInventory, TileControllerLarge te) {
         this.te = te;
@@ -63,18 +69,24 @@ public class ContainerControllerLarge extends Container {
     @Override
     public void updateProgressBar(int id, int data) {
         if(id == 5) {
-            enabled = data != 0;
+            isEnabled = data != 0;
         }
+        if(id == 6) {
+            redstoneBehaviour = data;
+        }
+
     }
 
     @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
 
-        for (IContainerListener containerListener : listeners) {
-            if (containerListener instanceof EntityPlayerMP) {
+        if(redstoneBehaviour != te.redstoneBehaviour || isEnabled != te.isEnabled) {
+            for (IContainerListener containerListener : listeners) {
                 containerListener.sendWindowProperty(this, 5, te.isEnabled ? 1 : 0);
-                containerListener.sendWindowProperty(this, 6, te.obeyRedstone ? 1 : 0);
+                containerListener.sendWindowProperty(this, 6, te.redstoneBehaviour);
+                redstoneBehaviour = te.redstoneBehaviour;
+                isEnabled = te.isEnabled;
             }
         }
     }

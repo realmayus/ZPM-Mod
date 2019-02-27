@@ -6,7 +6,6 @@ import mayus.zpmmod.util.IGuiTile;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -23,7 +22,14 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
 
 
     private int clientEnergy = -1;
-    public boolean obeyRedstone = true;
+
+
+    /**
+     * 0 = Ignore Redstone
+     * 1 = Active on Redstone
+     * 2 = Not active on Redstone
+     */
+    public int redstoneBehaviour = 1;
     public boolean isEnabled = true;
 
     @Override
@@ -105,7 +111,7 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
     public void readRestorableFromNBT(NBTTagCompound compound) {
         //energyStorage.setEnergy(compound.getInteger("energy"));
         isEnabled = compound.getBoolean("enabled");
-        obeyRedstone = compound.getBoolean("redstone");
+        redstoneBehaviour = compound.getInteger("redstone");
     }
 
     @Override
@@ -118,7 +124,7 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
     public void writeRestorableToNBT(NBTTagCompound compound) {
        // compound.setInteger("energy", energyStorage.getEnergyStored());
         compound.setBoolean("enabled", isEnabled);
-        compound.setBoolean("redstone", obeyRedstone);
+        compound.setInteger("redstone", redstoneBehaviour);
     }
 
 
