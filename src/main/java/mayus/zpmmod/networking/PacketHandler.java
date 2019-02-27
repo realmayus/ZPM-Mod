@@ -14,7 +14,8 @@ public class PacketHandler {
     public static void registerMessages() {
         INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(ZPMMod.MODID);
 
-        INSTANCE.registerMessage(PacketSetEnabled.Handler.class, PacketSetEnabled.class, nextID(), Side.SERVER);
+        INSTANCE.registerMessage(PacketSetRedstoneBehaviour.Handler.class, PacketSetRedstoneBehaviour.class, nextID(), Side.SERVER);
+        INSTANCE.registerMessage(PacketToggleEnabled.Handler.class, PacketToggleEnabled.class, nextID(), Side.SERVER);
     }
 
 }

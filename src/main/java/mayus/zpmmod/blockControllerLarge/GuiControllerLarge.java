@@ -3,15 +3,15 @@ package mayus.zpmmod.blockControllerLarge;
 
 import mayus.zpmmod.ZPMMod;
 import mayus.zpmmod.networking.PacketHandler;
-import mayus.zpmmod.networking.PacketSetEnabled;
+import mayus.zpmmod.networking.PacketSetRedstoneBehaviour;
+import mayus.zpmmod.networking.PacketToggleEnabled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
-import scala.actors.threadpool.Arrays;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,16 +30,6 @@ public class GuiControllerLarge extends GuiContainer {
 
     private static final ResourceLocation GUI = new ResourceLocation(ZPMMod.MODID, "textures/gui/zpminterface_large.png");
 
-    private static final ResourceLocation GUI_ignore = new ResourceLocation(ZPMMod.MODID, "textures/gui/zpminterface_large_ignore.png");
-
-    private static final ResourceLocation GUI_no = new ResourceLocation(ZPMMod.MODID, "textures/gui/zpminterface_large_no.png");
-
-    private static final ResourceLocation GUIoff = new ResourceLocation(ZPMMod.MODID, "textures/gui/zpminterface_large_off.png");
-
-    private static final ResourceLocation GUIoff_ignore = new ResourceLocation(ZPMMod.MODID, "textures/gui/zpminterface_large_off.png");
-
-    private static final ResourceLocation GUIoff_no = new ResourceLocation(ZPMMod.MODID, "textures/gui/zpminterface_large_off.png");
-
     public GuiControllerLarge(TileControllerLarge tileEntity, ContainerControllerLarge container) {
         super(container);
 
@@ -54,24 +44,26 @@ public class GuiControllerLarge extends GuiContainer {
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         //Setting color to white because JEI is bae (gui would be yellow)
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        if(container.isEnabled) {
-            if(container.redstoneBehaviour == 0) {
-                mc.getTextureManager().bindTexture(GUI_ignore);
-            } else if(container.redstoneBehaviour == 1) {
-                mc.getTextureManager().bindTexture(GUI);
-            } else {
-                mc.getTextureManager().bindTexture(GUI_no);
-            }
-        } else {
-            if(container.redstoneBehaviour == 0) {
-                mc.getTextureManager().bindTexture(GUIoff_ignore);
-            } else if(container.redstoneBehaviour == 1) {
-                mc.getTextureManager().bindTexture(GUIoff);
-            } else {
-                mc.getTextureManager().bindTexture(GUIoff_no);
-            }
-        }
+        mc.getTextureManager().bindTexture(GUI);
+
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+
+        if(container.isEnabled) {
+            drawTexturedModalRect(guiLeft + 156, guiTop + 15, 176, 0, 5, 11);
+        } else {
+            drawTexturedModalRect(guiLeft + 156, guiTop + 15, 181, 0, 5, 11);
+        }
+
+
+        if(container.redstoneBehaviour == 0) {
+            drawTexturedModalRect(guiLeft + 150, guiTop + 34, 176, 11, 16, 14);
+        } else if(container.redstoneBehaviour == 1) {
+            drawTexturedModalRect(guiLeft + 150, guiTop + 34, 176, 25, 16, 14);
+        } else {
+            drawTexturedModalRect(guiLeft + 150, guiTop + 34, 176, 39, 16, 14);
+        }
+
+
 
 
     }
@@ -90,11 +82,17 @@ public class GuiControllerLarge extends GuiContainer {
         int yAxis = (mouseY - (height - ySize) / 2);
         if(xAxis >= 148 && xAxis <= 167 && yAxis >= 31 && yAxis <= 50) {
             if(container.redstoneBehaviour == 0) {
-                drawTooltip(mouseX, mouseY, new ArrayList<>(Collections.singletonList("Redstone Behaviour: Ignore")));
+                drawTooltip(mouseX, mouseY, new ArrayList<>(Collections.singletonList(I18n.format("tile.zpmmod.tooltip.ignore_signal"))));
             } else if(container.redstoneBehaviour == 1) {
-                drawTooltip(mouseX, mouseY, new ArrayList<>(Collections.singletonList("Redstone Behaviour: Active on Redstone")));
+                drawTooltip(mouseX, mouseY, new ArrayList<>(Collections.singletonList(I18n.format("tile.zpmmod.tooltip.active_on_signal"))));
             } else {
-                drawTooltip(mouseX, mouseY, new ArrayList<>(Collections.singletonList("Redstone Behaviour: Not Active on Redstone")));
+                drawTooltip(mouseX, mouseY, new ArrayList<>(Collections.singletonList(I18n.format("tile.zpmmod.tooltip.inactive_on_signal"))));
+            }
+        } else if(xAxis >= 148 && xAxis <= 167 && yAxis >= 7 && yAxis <= 26) {
+            if(container.isEnabled) {
+                drawTooltip(mouseX, mouseY, new ArrayList<>(Collections.singletonList(I18n.format("tile.zpmmod.tooltip.disable"))));
+            } else {
+                drawTooltip(mouseX, mouseY, new ArrayList<>(Collections.singletonList(I18n.format("tile.zpmmod.tooltip.enable"))));
             }
         }
     }
@@ -113,7 +111,7 @@ public class GuiControllerLarge extends GuiContainer {
             if(xAxis >= 148 && xAxis <= 167 && yAxis >= 31 && yAxis <= 50) {
 
                 Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-                PacketHandler.INSTANCE.sendToServer(new PacketSetEnabled());
+                PacketHandler.INSTANCE.sendToServer(new PacketSetRedstoneBehaviour());
 
 //                Incrementing here as well (because the packet does it (to keep it in sync with the packet))
                 if(container.redstoneBehaviour != 2) {
@@ -121,6 +119,9 @@ public class GuiControllerLarge extends GuiContainer {
                 } else {
                     container.redstoneBehaviour = 0;
                 }
+            } else if(xAxis >= 148 && xAxis <= 167 && yAxis >= 7 && yAxis <= 26) {
+                Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+                PacketHandler.INSTANCE.sendToServer(new PacketToggleEnabled());
             }
         }
     }
