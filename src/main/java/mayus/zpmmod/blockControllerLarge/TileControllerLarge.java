@@ -23,7 +23,8 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
 
 
     private int clientEnergy = -1;
-    public boolean enabled = true;
+    public boolean obeyRedstone = true;
+    public boolean isEnabled = true;
 
     @Override
     public void update() {
@@ -51,26 +52,16 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return true;
-        }
+        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
 
-        return super.hasCapability(capability, facing);
     }
-
 
     /**
      * Sets the hopper/pipe capability (allows access to the inventory slots by automation pipes/ hoppers
      */
-
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-           return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(combinedHandler);
-        }
-
-
-        return super.getCapability(capability, facing);
+        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(combinedHandler) : super.getCapability(capability, facing);
     }
 
 
@@ -113,7 +104,8 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
 
     public void readRestorableFromNBT(NBTTagCompound compound) {
         //energyStorage.setEnergy(compound.getInteger("energy"));
-        enabled = compound.getBoolean("enabled");
+        isEnabled = compound.getBoolean("enabled");
+        obeyRedstone = compound.getBoolean("redstone");
     }
 
     @Override
@@ -125,7 +117,8 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
 
     public void writeRestorableToNBT(NBTTagCompound compound) {
        // compound.setInteger("energy", energyStorage.getEnergyStored());
-        compound.setBoolean("enabled", enabled);
+        compound.setBoolean("enabled", isEnabled);
+        compound.setBoolean("redstone", obeyRedstone);
     }
 
 

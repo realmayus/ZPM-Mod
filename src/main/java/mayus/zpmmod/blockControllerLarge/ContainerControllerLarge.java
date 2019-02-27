@@ -73,7 +73,8 @@ public class ContainerControllerLarge extends Container {
 
         for (IContainerListener containerListener : listeners) {
             if (containerListener instanceof EntityPlayerMP) {
-                containerListener.sendWindowProperty(this, 5, te.enabled ? 1 : 0);
+                containerListener.sendWindowProperty(this, 5, te.isEnabled ? 1 : 0);
+                containerListener.sendWindowProperty(this, 6, te.obeyRedstone ? 1 : 0);
             }
         }
     }
