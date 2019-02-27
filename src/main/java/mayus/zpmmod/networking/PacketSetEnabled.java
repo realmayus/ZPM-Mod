@@ -23,11 +23,8 @@ public class PacketSetEnabled implements IMessage {
             EntityPlayerMP serverPlayer = ctx.getServerHandler().player;
             if(serverPlayer.openContainer instanceof ContainerControllerLarge) {
                 ContainerControllerLarge openContainer = (ContainerControllerLarge)serverPlayer.openContainer;
-                System.out.println(openContainer.te.enabled);
                 openContainer.te.enabled = !openContainer.te.enabled;
                 openContainer.te.markDirty();
-                System.out.println("Packet received! Tile Entity at position " + openContainer.te.getPos());
-                System.out.println(openContainer.te.enabled);
             }
 
             // No response packet

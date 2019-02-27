@@ -15,6 +15,7 @@ public class ContainerControllerLarge extends Container {
 
     public TileControllerLarge te;
 
+    public Boolean enabled = true;
 
     public ContainerControllerLarge(IInventory playerInventory, TileControllerLarge te) {
         this.te = te;
@@ -55,28 +56,26 @@ public class ContainerControllerLarge extends Container {
 
     }
 
+
+    /**
+     * A bit of a hack, but with Container#updateProgressBar you don't have to send a custom packet
+     */
+    @Override
+    public void updateProgressBar(int id, int data) {
+        if(id == 5) {
+            enabled = data != 0;
+        }
+    }
+
     @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
 
-        final SPacketUpdateTileEntity updatePacket = te != null ? te.getUpdatePacket() : null;
-        if (updatePacket != null) {
-            for (IContainerListener containerListener : listeners) {
-                if (containerListener instanceof EntityPlayerMP) {
-                    ((EntityPlayerMP) containerListener).connection.sendPacket(updatePacket);
-                }
+        for (IContainerListener containerListener : listeners) {
+            if (containerListener instanceof EntityPlayerMP) {
+                containerListener.sendWindowProperty(this, 5, te.enabled ? 1 : 0);
             }
         }
-
-       // if (te.getEnergy() != te.getClientEnergy()) {
-        //    te.setClientEnergy(te.getEnergy());
-            /*
-            for (IContainerListener listener : listeners) {
-                if (listener instanceof EntityPlayerMP) {
-                    EntityPlayerMP player = (EntityPlayerMP) listener;
-                    Messages.INSTANCE.sendTo(new PacketSyncMachineState(te.getEnergy(), 0), player);
-                }*/
-            }
-       // }
     }
+}
 
