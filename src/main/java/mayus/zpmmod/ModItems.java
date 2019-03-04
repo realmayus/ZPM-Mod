@@ -2,6 +2,7 @@ package mayus.zpmmod;
 
 import mayus.zpmmod.blockControllerLarge.BlockControllerLarge;
 import mayus.zpmmod.blockControllerSmall.BlockControllerSmall;
+import mayus.zpmmod.craftingItems.*;
 import mayus.zpmmod.itemZPM.ItemZPM;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -17,6 +18,31 @@ public class ModItems {
     @GameRegistry.ObjectHolder(ZPMMod.MODID + ":zpm")
     public static ItemZPM itemZPM;
 
+    @GameRegistry.ObjectHolder(ZPMMod.MODID + ":diamond_hardened_iron")
+    public static ItemDiaHardenedIron itemDiaHardenedIron;
+
+    @GameRegistry.ObjectHolder(ZPMMod.MODID + ":dimensional_obsidian")
+    public static ItemDimObsidian itemDimObsidian;
+
+    @GameRegistry.ObjectHolder(ZPMMod.MODID + ":electrode")
+    public static ItemElectrode itemElectrode;
+
+    @GameRegistry.ObjectHolder(ZPMMod.MODID + ":enderstar")
+    public static ItemEnderstar itemEnderstar;
+
+    @GameRegistry.ObjectHolder(ZPMMod.MODID + ":hardened_dimensional_star")
+    public static ItemHardenedDimStar itemHardenedDimStar;
+
+    @GameRegistry.ObjectHolder(ZPMMod.MODID + ":zpm_casing")
+    public static ItemZPMcasing itemZPMcasing;
+
+    @GameRegistry.ObjectHolder(ZPMMod.MODID + ":zpm_core")
+    public static ItemZPMcore itemZPMcore;
+
+    @GameRegistry.ObjectHolder(ZPMMod.MODID + ":zpm_holder")
+    public static ItemZPMholder itemZPMholder;
+
+
     @SideOnly(Side.CLIENT)
     public static void initModels() {
 
@@ -26,6 +52,14 @@ public class ModItems {
         registry.register(new ItemBlock(ModBlocks.blockControllerSmall).setRegistryName(BlockControllerSmall.CONTROLLER_SMALL));
         registry.register(new ItemBlock(ModBlocks.blockControllerLarge).setRegistryName(BlockControllerLarge.CONTROLLER_LARGE));
         registry.register(new ItemZPM());
+        registry.register(new ItemDiaHardenedIron());
+        registry.register(new ItemDimObsidian());
+        registry.register(new ItemElectrode());
+        registry.register(new ItemEnderstar());
+        registry.register(new ItemHardenedDimStar());
+        registry.register(new ItemZPMcasing());
+        registry.register(new ItemZPMcore());
+        registry.register(new ItemZPMholder());
 
     }
 
