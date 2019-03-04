@@ -2,7 +2,13 @@ package mayus.zpmmod.blockControllerSmall;
 
 
 import mayus.zpmmod.ZPMMod;
+import mayus.zpmmod.api.TOPInfoProvider;
+import mayus.zpmmod.blockControllerLarge.TileControllerLarge;
 import mayus.zpmmod.util.IGuiTile;
+import mcjty.intwheel.varia.InventoryHelper;
+import mcjty.theoneprobe.api.IProbeHitData;
+import mcjty.theoneprobe.api.IProbeInfo;
+import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -13,31 +19,31 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 
-public class BlockControllerSmall extends Block implements ITileEntityProvider {
+public class BlockControllerSmall extends Block implements ITileEntityProvider, TOPInfoProvider {
 
 
     //Creation of a so called "BlockState" for saving the direction the block is placed in
-    public static final PropertyDirection FACING = PropertyDirection.create("facing");
+    public static final PropertyDirection FACING_HORIZ = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 
-
-    //Save the combinations of the equipped items as an Integer (for the textures:
-    // 1 | empty
-    // 2 | depleted
-    // 3 | full
-    public static final PropertyInteger TEXTURE = PropertyInteger.create("texture", 1, 3);
 
     //Creation of a constant for saving texture path and ingame name
     public static final ResourceLocation CONTROLLER_SMALL = new ResourceLocation(ZPMMod.MODID, "controller_small");
@@ -61,10 +67,12 @@ public class BlockControllerSmall extends Block implements ITileEntityProvider {
         setHarvestLevel("pickaxe", 1);
 
         //Setting the default BlockState for the direction the block is placed in
-        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+        setDefaultState(blockState.getBaseState().withProperty(FACING_HORIZ, EnumFacing.NORTH));
 
         //Adding the block to the custom creative tab
         setCreativeTab(ZPMMod.creativeTab);
+
+        setHardness(5.0F);
     }
 
 
@@ -113,7 +121,7 @@ public class BlockControllerSmall extends Block implements ITileEntityProvider {
      */
     @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer));
+        return this.getDefaultState().withProperty(FACING_HORIZ, placer.getHorizontalFacing().getOpposite());
     }
 
 
@@ -122,18 +130,48 @@ public class BlockControllerSmall extends Block implements ITileEntityProvider {
      */
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING);
+        return new BlockStateContainer(this, FACING_HORIZ);
     }
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta & 7));
+        return this.getDefaultState().withProperty(FACING_HORIZ, EnumFacing.byIndex(meta & 7));
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(FACING).getIndex();
+        return state.getValue(FACING_HORIZ).getIndex();
     }
 
 
+    @Override
+    public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
+        TileEntity te = world.getTileEntity(data.getPos());
+        if (te instanceof TileControllerSmall) {
+            // If we are sure that the entity there is correct we can proceed:
+            TileControllerSmall tileControllerSmall = (TileControllerSmall) te;
+            // First add a horizontal line showing the clock item followed by current contents of the counter in the tile entity
+            if (tileControllerSmall.isEnabled) probeInfo.horizontal()
+                    .text(TextFormatting.GREEN + "Enabled");
+            else probeInfo.horizontal()
+                    .text(TextFormatting.RED + "Disabled");
+            if(!tileControllerSmall.inputHandler.getStackInSlot(0).isEmpty()) {
+                probeInfo.horizontal(probeInfo.defaultLayoutStyle().borderColor(0xffff0000))
+                        .text("1/1 ZPMs installed")
+                        .item(tileControllerSmall.inputHandler.getStackInSlot(0));
+            }
+        }
+    }
+
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntity te = worldIn.getTileEntity(pos);
+
+        if(te instanceof TileControllerSmall) {
+            if(((TileControllerSmall) te).doesContainZPM()) {
+                InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), ((TileControllerSmall) te).inputHandler.getStackInSlot(0));
+            }
+        }
+        super.breakBlock(worldIn, pos, state);
+    }
 }

@@ -1,7 +1,9 @@
 package mayus.zpmmod.blockControllerSmall;
 
+import mayus.zpmmod.itemZPM.ItemZPM;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -11,8 +13,15 @@ import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerControllerSmall extends Container {
 
-    private TileControllerSmall te;
+    public TileControllerSmall te;
 
+    /**
+     * 0 = Ignore Redstone
+     * 1 = Active on Redstone
+     * 2 = Not active on Redstone
+     */
+    public int redstoneBehaviour = 0;
+    public boolean isEnabled = true;
 
     public ContainerControllerSmall(IInventory playerInventory, TileControllerSmall te) {
         this.te = te;
@@ -49,20 +58,36 @@ public class ContainerControllerSmall extends Container {
         addSlotToContainer(new SlotItemHandler(itemHandler, 0, 80, 31));
     }
 
+    /**
+     * A bit of a hack, but with Container#updateProgressBar you don't have to send a custom packet
+     */
+    @Override
+    public void updateProgressBar(int id, int data) {
+        if(id == 5) {
+            isEnabled = data != 0;
+        }
+        if(id == 6) {
+            redstoneBehaviour = data;
+        }
+
+    }
+
     @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
 
-       // if (te.getEnergy() != te.getClientEnergy()) {
-        //    te.setClientEnergy(te.getEnergy());
-            /*
-            for (IContainerListener listener : listeners) {
-                if (listener instanceof EntityPlayerMP) {
-                    EntityPlayerMP player = (EntityPlayerMP) listener;
-                    Messages.INSTANCE.sendTo(new PacketSyncMachineState(te.getEnergy(), 0), player);
-                }*/
+        super.detectAndSendChanges();
+
+        if(redstoneBehaviour != te.redstoneBehaviour || isEnabled != te.isEnabled) {
+            for (IContainerListener containerListener : listeners) {
+                containerListener.sendWindowProperty(this, 5, te.isEnabled ? 1 : 0);
+                containerListener.sendWindowProperty(this, 6, te.redstoneBehaviour);
+                redstoneBehaviour = te.redstoneBehaviour;
+                isEnabled = te.isEnabled;
             }
-       // }
+        }
+    }
+
 
 
     /**
@@ -73,15 +98,15 @@ public class ContainerControllerSmall extends Container {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.inventorySlots.get(index);
 
-        if (slot != null && slot.getHasStack()) {
+        if (slot != null && slot.getHasStack() && slot.getStack().getItem() instanceof ItemZPM) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
-            if (index < TileControllerSmall.SIZE) {
-                if (!this.mergeItemStack(itemstack1, TileControllerSmall.SIZE, this.inventorySlots.size(), true)) {
+            if (index == 36) {
+                if (!this.mergeItemStack(itemstack1, 0, 36, true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.mergeItemStack(itemstack1, 0, TileControllerSmall.SIZE, false)) {
+            } else if (!this.mergeItemStack(itemstack1, 36, 37, false)) {
                 return ItemStack.EMPTY;
             }
 

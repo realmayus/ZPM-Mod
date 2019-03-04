@@ -1,17 +1,17 @@
-itemGroup.zpmmod=Zero Point Module Mod
-
+itemGroup.zpmmod=Zero Point Mod
 
 # Blocks
 tile.zpmmod.controller_small.name=ZPM Controller (Small)
 tile.zpmmod.controller_large.name=ZPM Controller (Large)
 
-
 # Tooltips
 tile.zpmmod.tooltip.enable=Enable
 tile.zpmmod.tooltip.disable=Disable
-tile.zpmmod.tooltip.active_on_signal=Active on redstone signal
-tile.zpmmod.tooltip.inactive_on_signal=Inactive on redstone signal
+tile.zpmmod.tooltip.active_on_signal=Active with redstone signal
+tile.zpmmod.tooltip.inactive_on_signal=Active without redstone signal
 tile.zpmmod.tooltip.ignore_signal=Ignore redstone signal
+
+item.zpmmod.tooltip.storedEnergy=Stored Energy:
 
 # Items
 item.zpm.name=ZPM

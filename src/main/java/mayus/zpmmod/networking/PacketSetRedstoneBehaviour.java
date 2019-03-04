@@ -2,6 +2,7 @@ package mayus.zpmmod.networking;
 
 import io.netty.buffer.ByteBuf;
 import mayus.zpmmod.blockControllerLarge.ContainerControllerLarge;
+import mayus.zpmmod.blockControllerSmall.ContainerControllerSmall;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -24,6 +25,16 @@ public class PacketSetRedstoneBehaviour implements IMessage {
             serverPlayer.getServerWorld().addScheduledTask(() -> {
                 if (serverPlayer.openContainer instanceof ContainerControllerLarge) {
                     ContainerControllerLarge openContainer = (ContainerControllerLarge) serverPlayer.openContainer;
+                    if (openContainer.redstoneBehaviour == 0) {
+                        openContainer.te.redstoneBehaviour = 1;
+                    } else if (openContainer.redstoneBehaviour == 1) {
+                        openContainer.te.redstoneBehaviour = 2;
+                    } else {
+                        openContainer.te.redstoneBehaviour = 0;
+                    }
+                    openContainer.te.markDirty();
+                } else if (serverPlayer.openContainer instanceof ContainerControllerSmall) {
+                    ContainerControllerSmall openContainer = (ContainerControllerSmall) serverPlayer.openContainer;
                     if (openContainer.redstoneBehaviour == 0) {
                         openContainer.te.redstoneBehaviour = 1;
                     } else if (openContainer.redstoneBehaviour == 1) {

@@ -1,11 +1,13 @@
 package mayus.zpmmod.blockControllerLarge;
 
+import mayus.zpmmod.itemZPM.ItemZPM;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -20,7 +22,7 @@ public class ContainerControllerLarge extends Container {
      * 1 = Active on Redstone
      * 2 = Not active on Redstone
      */
-    public int redstoneBehaviour = 1;
+    public int redstoneBehaviour = 0;
     public boolean isEnabled = true;
 
     public ContainerControllerLarge(IInventory playerInventory, TileControllerLarge te) {
@@ -89,6 +91,33 @@ public class ContainerControllerLarge extends Container {
                 isEnabled = te.isEnabled;
             }
         }
+    }
+
+    @Override
+    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.inventorySlots.get(index);
+
+        if (slot != null && slot.getHasStack() && slot.getStack().getItem() instanceof ItemZPM) {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+
+            if (index > 35 && index < 39) {
+                if (!this.mergeItemStack(itemstack1, 0, 36, true)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (!this.mergeItemStack(itemstack1, 36, 39, false)) {
+                return ItemStack.EMPTY;
+            }
+
+            if (itemstack1.isEmpty()) {
+                slot.putStack(ItemStack.EMPTY);
+            } else {
+                slot.onSlotChanged();
+            }
+        }
+
+        return itemstack;
     }
 }
 

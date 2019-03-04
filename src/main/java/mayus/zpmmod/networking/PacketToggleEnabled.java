@@ -2,6 +2,7 @@ package mayus.zpmmod.networking;
 
 import io.netty.buffer.ByteBuf;
 import mayus.zpmmod.blockControllerLarge.ContainerControllerLarge;
+import mayus.zpmmod.blockControllerSmall.ContainerControllerSmall;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -24,6 +25,9 @@ public class PacketToggleEnabled implements IMessage {
             serverPlayer.getServerWorld().addScheduledTask(() -> {
                 if (serverPlayer.openContainer instanceof ContainerControllerLarge) {
                     ContainerControllerLarge openContainer = (ContainerControllerLarge) serverPlayer.openContainer;
+                    openContainer.te.isEnabled = !openContainer.te.isEnabled;
+                } else if (serverPlayer.openContainer instanceof ContainerControllerSmall) {
+                    ContainerControllerSmall openContainer = (ContainerControllerSmall) serverPlayer.openContainer;
                     openContainer.te.isEnabled = !openContainer.te.isEnabled;
                 }
             });

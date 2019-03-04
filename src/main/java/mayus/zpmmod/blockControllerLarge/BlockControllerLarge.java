@@ -3,7 +3,12 @@ package mayus.zpmmod.blockControllerLarge;
 
 
 import mayus.zpmmod.ZPMMod;
+import mayus.zpmmod.api.TOPInfoProvider;
+import mayus.zpmmod.blockControllerSmall.TileControllerSmall;
 import mayus.zpmmod.util.IGuiTile;
+import mcjty.theoneprobe.api.IProbeHitData;
+import mcjty.theoneprobe.api.IProbeInfo;
+import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -13,32 +18,34 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 
-public class BlockControllerLarge extends Block implements ITileEntityProvider {
+public class BlockControllerLarge extends Block implements ITileEntityProvider, TOPInfoProvider {
 
 
     //Creation of a so called "BlockState" for saving the direction the block is placed in
     public static final PropertyDirection FACING_HORIZ = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 
-
-    //Save the combinations of the equipped items as an Integer (for the textures:
-    // 111  | empty, empty, empty
-    // 112  | empty, empty, depleted
-    // 123  | empty, depleted, full
-    // and so on...
-    //public static final PropertyInteger TEXTURE = PropertyInteger.create("texture", 111, 333);
 
     //Creation of a constant for saving texture path and ingame name
     public static final ResourceLocation CONTROLLER_LARGE = new ResourceLocation(ZPMMod.MODID, "controller_large");
@@ -138,5 +145,40 @@ public class BlockControllerLarge extends Block implements ITileEntityProvider {
     @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(FACING_HORIZ).getIndex();
+    }
+
+    @Override
+    public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
+        TileEntity te = world.getTileEntity(data.getPos());
+        if (te instanceof TileControllerLarge) {
+            // If we are sure that the entity there is correct we can proceed:
+            TileControllerLarge tileControllerLarge = (TileControllerLarge) te;
+            // First add a horizontal line showing the clock item followed by current contents of the counter in the tile entity
+            if (((TileControllerLarge) te).isEnabled) probeInfo.horizontal()
+                    .text(TextFormatting.GREEN + "Enabled");
+            else probeInfo.horizontal()
+                    .text(TextFormatting.RED + "Disabled");
+            if(tileControllerLarge.doesContainZPM()) {
+                probeInfo.horizontal(probeInfo.defaultLayoutStyle().borderColor(0xffff0000))
+                        .text(tileControllerLarge.getZPMcount() + "/3 ZPMs installed")
+                        .item(tileControllerLarge.inputHandler.getStackInSlot(0))
+                        .item(tileControllerLarge.inputHandler.getStackInSlot(1))
+                        .item(tileControllerLarge.inputHandler.getStackInSlot(2));
+            }
+        }
+    }
+
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntity te = worldIn.getTileEntity(pos);
+
+        if(te instanceof TileControllerLarge) {
+            if(((TileControllerLarge) te).doesContainZPM()) {
+                InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), ((TileControllerLarge) te).inputHandler.getStackInSlot(0));
+                InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), ((TileControllerLarge) te).inputHandler.getStackInSlot(1));
+                InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY(), pos.getZ(), ((TileControllerLarge) te).inputHandler.getStackInSlot(2));
+            }
+        }
+        super.breakBlock(worldIn, pos, state);
     }
 }

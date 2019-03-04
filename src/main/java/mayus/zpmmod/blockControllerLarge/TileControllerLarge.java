@@ -1,17 +1,22 @@
 package mayus.zpmmod.blockControllerLarge;
 
 
+import mayus.zpmmod.ZPMConfig;
 import mayus.zpmmod.itemZPM.ItemZPM;
 import mayus.zpmmod.util.IGuiTile;
+import mayus.zpmmod.util.MyEnergyStorage;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
@@ -20,24 +25,88 @@ import javax.annotation.Nonnull;
 
 public class TileControllerLarge extends TileEntity implements IGuiTile, ITickable {
 
-
-    private int clientEnergy = -1;
-
-
     /**
      * 0 = Ignore Redstone
      * 1 = Active on Redstone
      * 2 = Not active on Redstone
      */
-    public int redstoneBehaviour = 1;
+    public int redstoneBehaviour = 0;
     public boolean isEnabled = true;
+
 
     @Override
     public void update() {
-        if(this.world.isBlockPowered(this.getPos())) {
-
+        if(isEnabled) {
+            if(isActiveBasedOnSettings()) {
+                if(doesContainZPM()) {
+                    for (int i = 0; i < 3; i++) {
+                        if(doesContainZPM(i)) {
+                            ItemZPM zpm = (ItemZPM) this.inputHandler.getStackInSlot(i).getItem();
+                            sendEnergy(zpm.getEnergyStorage(this.inputHandler.getStackInSlot(i)));
+                        }
+                    }
+                }
+            }
         }
     }
+
+    private boolean isActiveBasedOnSettings() {
+        if(redstoneBehaviour == 0) {
+            return true;
+        } else if(redstoneBehaviour == 1) {
+            if(this.world.isBlockPowered(this.getPos())) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if(this.world.isBlockPowered(this.getPos())) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+    public boolean doesContainZPM() {
+        return !this.inputHandler.getStackInSlot(0).isEmpty() || !this.inputHandler.getStackInSlot(1).isEmpty() || !this.inputHandler.getStackInSlot(2).isEmpty();
+    }
+
+    public boolean doesContainZPM(Integer slot) {
+        return !this.inputHandler.getStackInSlot(slot).isEmpty();
+    }
+
+    //n00b method
+    public int getZPMcount() {
+        int i = 0;
+        if(doesContainZPM(0)) i++;
+        if(doesContainZPM(1)) i++;
+        if(doesContainZPM(2)) i++;
+        return i;
+    }
+
+    public int getEnergyOfZPM(Integer slot) {
+        return this.inputHandler.getStackInSlot(slot).getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored();
+    }
+
+    private void sendEnergy(IEnergyStorage energyStorage) {
+        if (energyStorage.getEnergyStored() > 0) {
+            for (EnumFacing facing : EnumFacing.VALUES) {
+                TileEntity tileEntity = world.getTileEntity(pos.offset(facing));
+                if (tileEntity != null && tileEntity.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())) {
+                    IEnergyStorage handler = tileEntity.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
+                    if (handler != null && handler.canReceive()) {
+                        int accepted = handler.receiveEnergy(energyStorage.getEnergyStored(), false);
+                        energyStorage.extractEnergy(accepted, false);
+                        if (energyStorage.getEnergyStored() <= 0) {
+                            break;
+                        }
+                    }
+                }
+            }
+            markDirty();
+        }
+    }
+
 
     @Override
     public Container createContainer(EntityPlayer player) {
@@ -58,23 +127,39 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return true;
+        }
+
+        if(capability == CapabilityEnergy.ENERGY) {
+            return true;
+        }
+
+        return super.hasCapability(capability, facing);
 
     }
 
-    /**
-     * Sets the hopper/pipe capability (allows access to the inventory slots by automation pipes/ hoppers
-     */
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(combinedHandler) : super.getCapability(capability, facing);
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(combinedHandler);
+        }
+
+        if(capability == CapabilityEnergy.ENERGY) {
+            return CapabilityEnergy.ENERGY.cast(myEnergyStorage);
+
+        }
+
+        return super.getCapability(capability, facing);
     }
 
+    //int has to be 0 as we don't want to receive energy
+    private MyEnergyStorage myEnergyStorage = new MyEnergyStorage(ZPMConfig.MAX_POWER_CONTROLLER_LARGE, 0);
 
     /**
      * Handler for the Input Slots
      */
-    private ItemStackHandler inputHandler = new ItemStackHandler(3) {
+    public ItemStackHandler inputHandler = new ItemStackHandler(3) {
 
         @Override
         public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
@@ -86,9 +171,6 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
             TileControllerLarge.this.markDirty();
         }
     };
-
-
-
 
     /**
      * Handler for the Output Slots
@@ -109,7 +191,6 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
     }
 
     public void readRestorableFromNBT(NBTTagCompound compound) {
-        //energyStorage.setEnergy(compound.getInteger("energy"));
         isEnabled = compound.getBoolean("enabled");
         redstoneBehaviour = compound.getInteger("redstone");
     }
@@ -122,10 +203,7 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
     }
 
     public void writeRestorableToNBT(NBTTagCompound compound) {
-       // compound.setInteger("energy", energyStorage.getEnergyStored());
         compound.setBoolean("enabled", isEnabled);
         compound.setInteger("redstone", redstoneBehaviour);
     }
-
-
 }

@@ -3,6 +3,8 @@ package mayus.zpmmod.itemZPM;
 import mayus.zpmmod.ZPMMod;
 import mayus.zpmmod.util.EnergyCapabilityProvider;
 import mayus.zpmmod.util.EnergyStorageItem;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -15,7 +17,9 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 
+import javax.annotation.Nullable;
 import java.awt.*;
+import java.util.List;
 
 public class ItemZPM extends Item {
 
@@ -27,20 +31,6 @@ public class ItemZPM extends Item {
         setCreativeTab(ZPMMod.creativeTab);
         setTranslationKey("zpm");
         setRegistryName(ZPM);
-    }
-
-    /**
-     * Called when the equipped item is right clicked.
-     */
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
-    {
-
-        if(worldIn.isRemote) {
-            playerIn.sendMessage(new TextComponentString("CLICK!"));
-            playerIn.getHeldItem(handIn).setItemDamage(playerIn.getHeldItem(handIn).getMaxDamage() - 1);
-        }
-
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
     }
 
     @Override
@@ -86,5 +76,10 @@ public class ItemZPM extends Item {
     @Override
     public int getRGBDurabilityForDisplay(ItemStack stack) {
         return new Color(255, 246, 0).getRGB();
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        tooltip.add(I18n.format("item.zpmmod.tooltip.storedEnergy") + " " + getEnergyStorage(stack).getEnergyStored() + " RF");
     }
 }

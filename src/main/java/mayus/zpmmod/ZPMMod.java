@@ -51,6 +51,4 @@ public class ZPMMod {
         proxy.postInit(e);
     }
 
-
-    //TODO:  Abfragen des States am Server, sodass sich das GUI updatet.
 }

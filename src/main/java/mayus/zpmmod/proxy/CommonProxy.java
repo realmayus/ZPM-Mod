@@ -5,6 +5,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import mayus.zpmmod.ModBlocks;
 import mayus.zpmmod.ModItems;
 import mayus.zpmmod.ZPMMod;
+import mayus.zpmmod.api.MainCompatHandler;
 import mayus.zpmmod.networking.PacketHandler;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,6 +28,7 @@ public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent e) {
         PacketHandler.registerMessages();
+        MainCompatHandler.registerTOP();
     }
 
     public void init(FMLInitializationEvent e) {
