@@ -17,7 +17,7 @@ item.zpmmod.tooltip.storedEnergy=Stored Energy:
 # Items
 item.zpm.name=ZPM
 item.diamond_hardened_iron.name=Diamond Hardened Iron
-item.dimensional_obisidan.name=Dimensional Obsidian
+item.dimensional_obsidian.name=Dimensional Obsidian
 item.electrode.name=Electrode
 item.enderstar.name=Ender Star
 item.hardened_dimensional_star.name=Hardened Dimensional Star

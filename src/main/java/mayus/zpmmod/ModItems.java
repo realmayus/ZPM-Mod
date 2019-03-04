@@ -66,6 +66,14 @@ public class ModItems {
     @SideOnly(Side.CLIENT)
     public static void registerRender() {
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemZPM, 0, new ModelResourceLocation(itemZPM.getRegistryName(), "inventory"));
+        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemDiaHardenedIron, 0, new ModelResourceLocation(itemDiaHardenedIron.getRegistryName(), "inventory"));
+        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemDimObsidian, 0, new ModelResourceLocation(itemDimObsidian.getRegistryName(), "inventory"));
+        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemElectrode, 0, new ModelResourceLocation(itemElectrode.getRegistryName(), "inventory"));
+        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemEnderstar, 0, new ModelResourceLocation(itemEnderstar.getRegistryName(), "inventory"));
+        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemHardenedDimStar, 0, new ModelResourceLocation(itemHardenedDimStar.getRegistryName(), "inventory"));
+        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemZPMcasing, 0, new ModelResourceLocation(itemZPMcasing.getRegistryName(), "inventory"));
+        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemZPMcore, 0, new ModelResourceLocation(itemZPMcore.getRegistryName(), "inventory"));
+        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemZPMholder, 0, new ModelResourceLocation(itemZPMholder.getRegistryName(), "inventory"));
 
     }
 
