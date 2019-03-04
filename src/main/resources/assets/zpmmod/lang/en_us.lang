@@ -10,8 +10,17 @@ tile.zpmmod.tooltip.disable=Disable
 tile.zpmmod.tooltip.active_on_signal=Active with redstone signal
 tile.zpmmod.tooltip.inactive_on_signal=Active without redstone signal
 tile.zpmmod.tooltip.ignore_signal=Ignore redstone signal
+tile.zpmmod.tooltip.craftingItem=Crafting item.
 
 item.zpmmod.tooltip.storedEnergy=Stored Energy:
 
 # Items
 item.zpm.name=ZPM
+item.diamond_hardened_iron.name=Diamond Hardened Iron
+item.dimensional_obisidan.name=Dimensional Obsidian
+item.electrode.name=Electrode
+item.enderstar.name=Ender Star
+item.hardened_dimensional_star.name=Hardened Dimensional Star
+item.zpm_casing.name=ZPM Casing
+item.zpm_core.name=ZPM Core
+item.zpm_holder.name=ZPM Holder
