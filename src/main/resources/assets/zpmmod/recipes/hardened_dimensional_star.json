@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "hardened_dimensional_star"
+  },
+  "pattern": [
+    " d ",
+    "dEd",
+    " d "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "d": {
+      "item": "zpmmod:dimensional_obsidian"
+    },
+    "E": {
+      "item": "minecraft:iron_bars"
+    }
+
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "enderstar"
+  },
+  "pattern": [
+    "e e",
+    "eSe",
+    "e e"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "e": {
+      "item": "minecraft:ender_pearl"
+    },
+    "S": {
+      "item": "minecraft:nether_star"
+    }
+  }
+}

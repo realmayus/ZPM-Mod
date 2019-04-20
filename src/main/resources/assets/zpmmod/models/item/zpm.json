@@ -2,5 +2,14 @@
   "parent": "item/handheld",
   "textures": {
     "layer0": "zpmmod:items/zpm"
-  }
+  },
+  "overrides": [
+    {
+      "__comment": "Changing texture when power is bigger than 0",
+      "predicate": {
+        "energy": 0.25
+      },
+      "model": "zpmmod:item/zpm_empty"
+    }
+  ]
 }

@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "dimensional_obsidian"
+  },
+  "pattern": [
+    "eee",
+    "eOe",
+    "eee"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "e": {
+      "item": "minecraft:ender_pearl"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    }
+  }
+}

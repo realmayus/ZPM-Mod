@@ -18,6 +18,11 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 repositories {
+    
+    // Open Computers
+    maven {
+        url = "http://maven.cil.li/"
+    }
     maven { // The repo from which to get waila
         name "Mobius Repo"
         url "http://tehnut.info/maven"
@@ -53,6 +58,7 @@ minecraft {
 }
 
 dependencies {
+    compile "li.cil.oc:OpenComputers:MC1.12.2-1.7.+:api"
     deobfCompile "mezz.jei:jei_1.12.2:4.14.4.267"
     deobfCompile "mcp.mobius.waila:Hwyla:1.8.18-B32_1.12:api"
     deobfCompile "cofh:RedstoneFlux:1.12-2.0.0.1:universal"

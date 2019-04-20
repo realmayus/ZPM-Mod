@@ -10,10 +10,9 @@ tile.zpmmod.tooltip.disable=Disable
 tile.zpmmod.tooltip.active_on_signal=Active with redstone signal
 tile.zpmmod.tooltip.inactive_on_signal=Active without redstone signal
 tile.zpmmod.tooltip.ignore_signal=Ignore redstone signal
-
 item.zpmmod.tooltip.craftingItem=Crafting item.
-
 item.zpmmod.tooltip.storedEnergy=Stored Energy:
+item.zpmmod.tooltip.controllerInstructions=Put it in a controller to extract energy.
 
 # Items
 item.zpm.name=ZPM

@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "diamond_hardened_iron"
+  },
+  "pattern": [
+    "ddd",
+    "dId",
+    "ddd"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "d": {
+      "item": "minecraft:diamond"
+    },
+    "I": {
+      "item": "minecraft:iron_block"
+    }
+  }
+}

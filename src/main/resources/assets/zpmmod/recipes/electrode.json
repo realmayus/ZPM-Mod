@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "electrode"
+  },
+  "pattern": [
+    "iRi",
+    "iRi",
+    "iii"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  }
+}

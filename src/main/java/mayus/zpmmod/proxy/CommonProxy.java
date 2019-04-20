@@ -2,15 +2,20 @@ package mayus.zpmmod.proxy;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.util.concurrent.ListenableFuture;
+import li.cil.oc.api.Driver;
 import mayus.zpmmod.ModBlocks;
 import mayus.zpmmod.ModItems;
 import mayus.zpmmod.ZPMMod;
 import mayus.zpmmod.api.MainCompatHandler;
 import mayus.zpmmod.networking.PacketHandler;
+import mayus.zpmmod.util.DriverController;
+import mayus.zpmmod.util.LootHandler;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.storage.loot.LootTableList;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.animation.ITimeValue;
 import net.minecraftforge.common.model.animation.IAnimationStateMachine;
 import net.minecraftforge.event.RegistryEvent;
@@ -29,10 +34,18 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent e) {
         PacketHandler.registerMessages();
         MainCompatHandler.registerTOP();
+
+        MinecraftForge.EVENT_BUS.register(new LootHandler());
+        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/simple_dungeon"));
+        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/stronghold_corridor"));
+        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/spawn_bonus_chest"));
+        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/desert_pyramid"));
+
     }
 
     public void init(FMLInitializationEvent e) {
         NetworkRegistry.INSTANCE.registerGuiHandler(ZPMMod.instance, new GuiHandler());
+        Driver.add(new DriverController());
     }
 
     public void postInit(FMLPostInitializationEvent e) {

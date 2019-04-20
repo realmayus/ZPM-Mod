@@ -67,7 +67,12 @@ public class TileControllerSmall extends TileEntity implements IGuiTile, ITickab
     }
 
     public int getEnergyOfZPM() {
-        return this.inputHandler.getStackInSlot(0).getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored();
+        if(this.inputHandler.getStackInSlot(0).getCapability(CapabilityEnergy.ENERGY, null) != null) {
+            return this.inputHandler.getStackInSlot(0).getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored();
+        } else {
+            return -1;
+        }
+
     }
 
     private void sendEnergy(IEnergyStorage energyStorage) {

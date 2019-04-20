@@ -3,10 +3,13 @@ package mayus.zpmmod.itemZPM;
 import mayus.zpmmod.ZPMMod;
 import mayus.zpmmod.util.EnergyCapabilityProvider;
 import mayus.zpmmod.util.EnergyStorageItem;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -16,6 +19,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -31,6 +36,13 @@ public class ItemZPM extends Item {
         setCreativeTab(ZPMMod.creativeTab);
         setTranslationKey("zpm");
         setRegistryName(ZPM);
+        this.addPropertyOverride(new ResourceLocation("energy"), new IItemPropertyGetter() {
+            @SideOnly(Side.CLIENT)
+            @Override
+            public float apply(ItemStack stack, @Nullable World world, @Nullable EntityLivingBase entity) {
+                return getEnergyStorage(stack).getEnergyStored() > 0 ? 0F : 1F;
+            }
+        });
     }
 
     @Override
@@ -81,5 +93,6 @@ public class ItemZPM extends Item {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         tooltip.add(I18n.format("item.zpmmod.tooltip.storedEnergy") + " " + getEnergyStorage(stack).getEnergyStored() + " RF");
+        tooltip.add(I18n.format("item.zpmmod.tooltip.controllerInstructions"));
     }
 }
