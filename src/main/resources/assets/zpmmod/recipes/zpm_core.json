@@ -3,25 +3,20 @@
     "item": "zpm_core"
   },
   "pattern": [
-    " e ",
-    "iFi",
-    "sss"
+    "dEd",
+    "dSd",
+    "dEd"
   ],
   "type": "forge:ore_shaped",
   "key": {
-    "e": {
-      "item": "minecraft:ender_pearl"
+    "d": {
+      "item": "zpmmod:diamond_hardened_iron"
     },
-    "i": {
-      "item": "minecraft:iron_bars"
+    "E": {
+      "item": "zpmmod:electrode"
     },
-    "F": {
-      "item": "minecraft:furnace"
-    },
-    "s": {
-      "item": "minecraft:stone",
-      "data": 0
+    "S": {
+      "item": "zpmmod:hardened_dimensional_star"
     }
-
   }
 }

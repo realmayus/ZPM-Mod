@@ -2,26 +2,13 @@
   "result": {
     "item": "zpm"
   },
-  "pattern": [
-    " e ",
-    "iFi",
-    "sss"
-  ],
-  "type": "forge:ore_shaped",
-  "key": {
-    "e": {
-      "item": "minecraft:ender_pearl"
-    },
-    "i": {
-      "item": "minecraft:iron_bars"
-    },
-    "F": {
-      "item": "minecraft:furnace"
-    },
-    "s": {
-      "item": "minecraft:stone",
-      "data": 0
-    }
-
-  }
+  "type": "forge:ore_shapeless",
+ "ingredients": [
+   {
+     "item": "zpmmod:zpm_casing"
+   },
+   {
+     "item": "zpmmod:zpm_core"
+   }
+ ]
 }

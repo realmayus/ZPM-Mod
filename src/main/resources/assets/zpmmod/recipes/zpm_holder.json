@@ -3,24 +3,17 @@
     "item": "zpm_holder"
   },
   "pattern": [
-    " e ",
-    "iFi",
-    "sss"
+    "iEi",
+    "i i",
+    "iEi"
   ],
   "type": "forge:ore_shaped",
   "key": {
-    "e": {
-      "item": "minecraft:ender_pearl"
-    },
     "i": {
-      "item": "minecraft:iron_bars"
+      "item": "minecraft:iron_ingot"
     },
-    "F": {
-      "item": "minecraft:furnace"
-    },
-    "s": {
-      "item": "minecraft:stone",
-      "data": 0
+    "E": {
+      "item": "zpmmod:electrode"
     }
 
   }

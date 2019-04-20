@@ -2,26 +2,45 @@
   "result": {
     "item": "zpm_casing"
   },
-  "pattern": [
-    " e ",
-    "iFi",
-    "sss"
-  ],
-  "type": "forge:ore_shaped",
-  "key": {
-    "e": {
-      "item": "minecraft:ender_pearl"
+  "type": "forge:ore_shapeless",
+  "ingredients": [
+    {
+      "type": "forge:ore_dict",
+      "ore": "gemDiamond"
     },
-    "i": {
-      "item": "minecraft:iron_bars"
+    {
+      "type": "forge:ore_dict",
+      "ore": "gemEmerald"
     },
-    "F": {
-      "item": "minecraft:furnace"
+    {
+      "type": "forge:ore_dict",
+      "ore": "gemEmerald"
     },
-    "s": {
-      "item": "minecraft:stone",
-      "data": 0
+    {
+      "type": "forge:ore_dict",
+      "ore": "dustRedstone"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "ingotGold"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "ingotGold"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "ingotGold"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "ingotGold"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "ingotGold"
     }
 
-  }
+  ]
+
 }
