@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = ZPMMod.MODID, name = ZPMMod.MODNAME, version = ZPMMod.MODVERSION, dependencies = "required-after:forge@[14.23.5.2768,)", useMetadata = true)
@@ -26,9 +27,6 @@ public class ZPMMod {
     public static final String MODID = "zpmmod";
     public static final String MODNAME = "ZPM Mod";
     public static final String MODVERSION= "0.0.1";
-
-    @SidedProxy(clientSide = "mayus.zpmmod.proxy.ClientProxy", serverSide = "mayus.zpmmod.proxy.ServerProxy")
-    public static CommonProxy proxy;
 
     public static CreativeTabs creativeTab = new CreativeTabs("zpmmod") {
         @Override
@@ -40,8 +38,11 @@ public class ZPMMod {
     @Mod.Instance
     public static ZPMMod instance;
 
-    public static Logger logger;
+    private static final Logger LOGGER = LogManager.getLogger();
 
+    public static Logger getLOGGER() {
+        return LOGGER;
+    }
 
     /**
      * This is the first initialization event. Register tile entities here.

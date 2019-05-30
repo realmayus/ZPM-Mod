@@ -70,7 +70,7 @@ public class ObjectRegistryHandler {
                 .filter(item -> item.getRegistryName().getNamespace().equals(ZPMMod.MODID))
                 .forEach(item -> ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "normal")));
 
-        ZPMMod.logger.debug("Registered models");
+        ZPMMod.getLOGGER().info("Registered models");
     }
 
 }

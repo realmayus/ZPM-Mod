@@ -31,7 +31,7 @@ public class TOPcompat {
         @Override
         public Void apply(ITheOneProbe theOneProbe) {
             probe = theOneProbe;
-            ZPMMod.logger.log(Level.INFO, "Enabled support for The One Probe");
+            ZPMMod.getLOGGER().log(Level.INFO, "Enabled support for The One Probe");
             probe.registerProvider(new IProbeInfoProvider() {
                 @Override
                 public String getID() {
