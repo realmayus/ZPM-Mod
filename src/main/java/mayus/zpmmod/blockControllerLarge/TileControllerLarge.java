@@ -1,6 +1,10 @@
 package mayus.zpmmod.blockControllerLarge;
 
 
+import li.cil.oc.api.machine.Arguments;
+import li.cil.oc.api.machine.Callback;
+import li.cil.oc.api.machine.Context;
+import li.cil.oc.api.network.SimpleComponent;
 import mayus.zpmmod.ZPMConfig;
 import mayus.zpmmod.itemZPM.ItemZPM;
 import mayus.zpmmod.util.IGuiTile;
@@ -22,8 +26,9 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 
 import javax.annotation.Nonnull;
+import java.util.HashMap;
 
-public class TileControllerLarge extends TileEntity implements IGuiTile, ITickable {
+public class TileControllerLarge extends TileEntity implements IGuiTile, ITickable, SimpleComponent {
 
     /**
      * 0 = Ignore Redstone
@@ -209,5 +214,33 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
     public void writeRestorableToNBT(NBTTagCompound compound) {
         compound.setBoolean("enabled", isEnabled);
         compound.setInteger("redstone", redstoneBehaviour);
+    }
+
+    @Override
+    public String getComponentName() {
+        return "controllerlarge";
+    }
+
+    @Callback(doc = "function():table - Get information about the installed ZPMs in the controller.")
+    public Object[] getZpmEnergy(final Context context, Arguments arguments)
+    {
+        return new Object[]{new HashMap<Integer, Object>() {
+            {
+                put(1, getEnergyOfZPM(0));
+                put(2, getEnergyOfZPM(1));
+                put(3, getEnergyOfZPM(2));
+            }
+
+        }
+        };
+    }
+
+    @Callback
+    public Object[] setEnabled(final Context context, Arguments arguments){
+        if(arguments.isBoolean(0)) {
+            isEnabled = arguments.checkBoolean(0);
+        }
+
+        return new Object[]{ true };
     }
 }

@@ -13,7 +13,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -21,7 +20,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = ZPMMod.MODID, name = ZPMMod.MODNAME, version = ZPMMod.MODVERSION, dependencies = "required-after:forge@[14.23.5.2768,)", useMetadata = true)
+@Mod(modid = ZPMMod.MODID, name = ZPMMod.MODNAME, version = ZPMMod.MODVERSION, dependencies = "after:OpenComputers", useMetadata = true)
 public class ZPMMod {
 
     public static final String MODID = "zpmmod";
@@ -51,7 +50,7 @@ public class ZPMMod {
     @Mod.EventHandler
     public void preinit(FMLPreInitializationEvent event) {
         PacketHandler.registerMessages();
-        MainCompatHandler.registerTOP();
+        MainCompatHandler.registerIntegrations();
 
         MinecraftForge.EVENT_BUS.register(new LootHandler());
         LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/simple_dungeon"));
@@ -66,7 +65,7 @@ public class ZPMMod {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         NetworkRegistry.INSTANCE.registerGuiHandler(ZPMMod.instance, new GuiHandler());
-        Driver.add(new DriverController());
+//        Driver.add(new DriverController());
     }
 
     /**

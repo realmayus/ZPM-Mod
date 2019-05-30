@@ -16,6 +16,7 @@ public class PacketHandler {
 
         INSTANCE.registerMessage(PacketSetRedstoneBehaviour.Handler.class, PacketSetRedstoneBehaviour.class, nextID(), Side.SERVER);
         INSTANCE.registerMessage(PacketToggleEnabled.Handler.class, PacketToggleEnabled.class, nextID(), Side.SERVER);
+//        INSTANCE.registerMessage(PacketSetEnabled.Handler.class, PacketSetEnabled.class, nextID(), Side.SERVER);
     }
 
 }
