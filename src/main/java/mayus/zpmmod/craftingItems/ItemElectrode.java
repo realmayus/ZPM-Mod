@@ -12,13 +12,9 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemElectrode extends Item {
-    public static final ResourceLocation ELECTRODE = new ResourceLocation(ZPMMod.MODID, "electrode");
-
     public ItemElectrode()
     {
-        setCreativeTab(ZPMMod.creativeTab);
         setTranslationKey("electrode");
-        setRegistryName(ELECTRODE);
     }
 
     @Override

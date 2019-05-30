@@ -12,13 +12,10 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemZPMcore extends Item {
-    public static final ResourceLocation ZPMCORE = new ResourceLocation(ZPMMod.MODID, "zpm_core");
 
     public ItemZPMcore()
     {
-        setCreativeTab(ZPMMod.creativeTab);
         setTranslationKey("zpm_core");
-        setRegistryName(ZPMCORE);
     }
 
     @Override

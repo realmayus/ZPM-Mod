@@ -35,11 +35,11 @@ public class CommonProxy {
         PacketHandler.registerMessages();
         MainCompatHandler.registerTOP();
 
-        MinecraftForge.EVENT_BUS.register(new LootHandler());
-        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/simple_dungeon"));
-        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/stronghold_corridor"));
-        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/spawn_bonus_chest"));
-        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/desert_pyramid"));
+//        MinecraftForge.EVENT_BUS.register(new LootHandler());
+//        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/simple_dungeon"));
+//        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/stronghold_corridor"));
+//        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/spawn_bonus_chest"));
+//        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/desert_pyramid"));
 
     }
 
@@ -52,15 +52,6 @@ public class CommonProxy {
 
     }
 
-    @SubscribeEvent
-    public static void registerBlocks(RegistryEvent.Register<Block> event) {
-        ModBlocks.register(event.getRegistry());
-    }
-
-    @SubscribeEvent
-    public static void registerItems(RegistryEvent.Register<Item> event) {
-        ModItems.register(event.getRegistry());
-    }
 
     @Nullable
     public IAnimationStateMachine load(ResourceLocation location, ImmutableMap<String, ITimeValue> parameters) {

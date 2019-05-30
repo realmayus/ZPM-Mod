@@ -12,13 +12,10 @@ import java.util.List;
 
 public class ItemDiaHardenedIron extends Item{
 
-    public static final ResourceLocation DIAHARDENEDIRON = new ResourceLocation(ZPMMod.MODID, "diamond_hardened_iron");
 
     public ItemDiaHardenedIron()
     {
-        setCreativeTab(ZPMMod.creativeTab);
         setTranslationKey("diamond_hardened_iron");
-        setRegistryName(DIAHARDENEDIRON);
     }
 
     @Override

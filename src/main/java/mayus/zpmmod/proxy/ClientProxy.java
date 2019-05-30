@@ -25,19 +25,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit(FMLPreInitializationEvent e) {
         super.preInit(e);
-        OBJLoader.INSTANCE.addDomain(ZPMMod.MODID);
-    }
-
-    @Override
-    public void init(FMLInitializationEvent e) {
-        ModItems.registerRender();
-        super.init(e);
-    }
-
-    @SubscribeEvent
-    public static void registerModels(ModelRegistryEvent event) {
-        ModBlocks.initModels();
-        ModItems.initModels();
     }
 
     @Override

@@ -13,13 +13,9 @@ import java.util.List;
 
 public class ItemHardenedDimStar extends Item {
 
-    public static final ResourceLocation HARDENEDDIMSTAR = new ResourceLocation(ZPMMod.MODID, "hardened_dimensional_star");
-
     public ItemHardenedDimStar()
     {
-        setCreativeTab(ZPMMod.creativeTab);
         setTranslationKey("hardened_dimensional_star");
-        setRegistryName(HARDENEDDIMSTAR);
     }
 
     @Override

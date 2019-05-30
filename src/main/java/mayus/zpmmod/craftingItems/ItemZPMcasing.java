@@ -12,13 +12,10 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemZPMcasing extends Item {
-    public static final ResourceLocation ZPMCASING = new ResourceLocation(ZPMMod.MODID, "zpm_casing");
 
     public ItemZPMcasing()
     {
-        setCreativeTab(ZPMMod.creativeTab);
         setTranslationKey("zpm_casing");
-        setRegistryName(ZPMCASING);
     }
 
     @Override

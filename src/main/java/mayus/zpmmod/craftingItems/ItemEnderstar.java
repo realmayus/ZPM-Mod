@@ -12,13 +12,9 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemEnderstar extends Item {
-    public static final ResourceLocation ENDERSTAR = new ResourceLocation(ZPMMod.MODID, "enderstar");
-
     public ItemEnderstar()
     {
-        setCreativeTab(ZPMMod.creativeTab);
         setTranslationKey("enderstar");
-        setRegistryName(ENDERSTAR);
     }
 
     @Override

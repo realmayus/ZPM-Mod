@@ -12,13 +12,10 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemZPMholder extends Item {
-    public static final ResourceLocation ZPMHOLDER = new ResourceLocation(ZPMMod.MODID, "zpm_holder");
 
     public ItemZPMholder()
     {
-        setCreativeTab(ZPMMod.creativeTab);
         setTranslationKey("zpm_holder");
-        setRegistryName(ZPMHOLDER);
     }
 
     @Override

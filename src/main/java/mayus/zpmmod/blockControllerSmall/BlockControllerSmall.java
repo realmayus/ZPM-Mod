@@ -4,12 +4,10 @@ package mayus.zpmmod.blockControllerSmall;
 import mayus.zpmmod.ZPMMod;
 import mayus.zpmmod.api.TOPInfoProvider;
 import mayus.zpmmod.util.IGuiTile;
-import mcjty.intwheel.varia.InventoryHelper;
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
-import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
@@ -17,6 +15,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -30,7 +29,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 
-public class BlockControllerSmall extends Block implements ITileEntityProvider, TOPInfoProvider {
+public class BlockControllerSmall extends Block implements TOPInfoProvider {
 
 
     //Creation of a so called "BlockState" for saving the direction the block is placed in
@@ -49,9 +48,6 @@ public class BlockControllerSmall extends Block implements ITileEntityProvider, 
         //Sound the Block makes by harvesting or walking over it
         super(Material.IRON);
 
-        //Setting the RegistryName to the constant 'CONTROLLER_SMALL'
-        setRegistryName(CONTROLLER_SMALL);
-
         //Setting a 'translation key' for referring to it in a language file (for setting the localized name of the block)
         setTranslationKey(ZPMMod.MODID + ".controller_small");
 
@@ -61,8 +57,6 @@ public class BlockControllerSmall extends Block implements ITileEntityProvider, 
         //Setting the default BlockState for the direction the block is placed in
         setDefaultState(blockState.getBaseState().withProperty(FACING_HORIZ, EnumFacing.NORTH));
 
-        //Adding the block to the custom creative tab
-        setCreativeTab(ZPMMod.creativeTab);
 
         setHardness(5.0F);
     }
@@ -76,13 +70,17 @@ public class BlockControllerSmall extends Block implements ITileEntityProvider, 
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
     }
 
+    @Override
+    public boolean hasTileEntity(IBlockState state) {
+        return true;
+    }
 
     @Nullable
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
+    public TileEntity createTileEntity(World world, IBlockState state) {
         return new TileControllerSmall();
-
     }
+
     /**
      * EVENT that is called when you right-click the block,
      */

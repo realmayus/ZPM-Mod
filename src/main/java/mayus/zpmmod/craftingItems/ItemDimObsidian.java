@@ -13,13 +13,10 @@ import java.util.List;
 
 public class ItemDimObsidian extends Item {
 
-    public static final ResourceLocation DIMOBSIDIAN = new ResourceLocation(ZPMMod.MODID, "dimensional_obsidian");
 
     public ItemDimObsidian()
     {
-        setCreativeTab(ZPMMod.creativeTab);
         setTranslationKey("dimensional_obsidian");
-        setRegistryName(DIMOBSIDIAN);
     }
 
     @Override

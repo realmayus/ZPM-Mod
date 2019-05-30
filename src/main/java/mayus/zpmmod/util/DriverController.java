@@ -1,0 +1,33 @@
+package mayus.zpmmod.util;
+
+import li.cil.oc.api.driver.DriverBlock;
+import li.cil.oc.api.network.ManagedEnvironment;
+import mayus.zpmmod.blockControllerLarge.TileControllerLarge;
+import mayus.zpmmod.blockControllerSmall.TileControllerSmall;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+
+public class DriverController implements DriverBlock {
+    @Override
+    public boolean worksWith(World world, BlockPos blockPos, EnumFacing enumFacing) {
+        TileEntity tile = world.getTileEntity(blockPos);
+        if(tile != null) {
+            return tile instanceof TileControllerSmall || tile instanceof TileControllerLarge;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public ManagedEnvironment createEnvironment(World world, BlockPos blockPos, EnumFacing enumFacing) {
+        if(world.getTileEntity(blockPos) instanceof TileControllerSmall) {
+            return new EnvironmentControllerSmall((TileControllerSmall)world.getTileEntity(blockPos));
+        } else if(world.getTileEntity(blockPos) instanceof TileControllerLarge) {
+            return new EnvironmentControllerLarge((TileControllerLarge)world.getTileEntity(blockPos));
+        } else {
+            return null;
+        }
+    }
+}

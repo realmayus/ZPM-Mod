@@ -1,6 +1,7 @@
 package mayus.zpmmod;
 
 
+import com.sun.xml.internal.bind.v2.TODO;
 import mayus.zpmmod.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -30,11 +31,9 @@ public class ZPMMod {
     public static CreativeTabs creativeTab = new CreativeTabs("zpmmod") {
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(ModBlocks.blockControllerSmall);
+            return new ItemStack(ModBlocks.CONTROLLER_SMALL);
         }
     };
-
-
 
     @Mod.Instance
     public static ZPMMod instance;

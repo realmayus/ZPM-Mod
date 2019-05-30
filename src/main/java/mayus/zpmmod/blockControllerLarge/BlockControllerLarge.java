@@ -59,9 +59,6 @@ public class BlockControllerLarge extends Block implements ITileEntityProvider, 
         //Sound the Block makes by harvesting or walking over it
         super(Material.IRON);
 
-        //Setting the RegistryName to the constant 'CONTROLLER_SMALL'
-        setRegistryName(CONTROLLER_LARGE);
-
         //Setting a 'translation key' for referring to it in a language file (for setting the localized name of the block)
         setTranslationKey(ZPMMod.MODID + ".controller_large");
 
@@ -69,9 +66,6 @@ public class BlockControllerLarge extends Block implements ITileEntityProvider, 
         setHarvestLevel("pickaxe", 1);
         //Setting the default BlockState for the direction the block is placed in
         setDefaultState(blockState.getBaseState().withProperty(FACING_HORIZ, EnumFacing.NORTH));
-
-        //Adding the block to the custom creative tab
-        setCreativeTab(ZPMMod.creativeTab);
 
         setHardness(5.0F);
     }

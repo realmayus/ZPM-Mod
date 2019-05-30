@@ -28,14 +28,11 @@ import java.util.List;
 
 public class ItemZPM extends Item {
 
-    public static final ResourceLocation ZPM = new ResourceLocation(ZPMMod.MODID, "zpm");
 
     public ItemZPM()
     {
         maxStackSize = 1;
-        setCreativeTab(ZPMMod.creativeTab);
         setTranslationKey("zpm");
-        setRegistryName(ZPM);
         this.addPropertyOverride(new ResourceLocation("energy"), new IItemPropertyGetter() {
             @SideOnly(Side.CLIENT)
             @Override
