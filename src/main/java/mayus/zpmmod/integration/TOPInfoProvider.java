@@ -1,4 +1,4 @@
-package mayus.zpmmod.api;
+package mayus.zpmmod.integration;
 
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;

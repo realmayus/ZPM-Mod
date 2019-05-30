@@ -1,4 +1,4 @@
-package mayus.zpmmod.api;
+package mayus.zpmmod.integration;
 
 import mayus.zpmmod.ZPMMod;
 import mcjty.theoneprobe.api.*;
@@ -19,7 +19,7 @@ public class TOPcompat {
         if (registered)
             return;
         registered = true;
-        FMLInterModComms.sendFunctionMessage("theoneprobe", "getTheOneProbe", "mayus.zpmmod.api.TOPcompat$GetTheOneProbe");
+        FMLInterModComms.sendFunctionMessage("theoneprobe", "getTheOneProbe", "mayus.zpmmod.integration.TOPcompat$GetTheOneProbe");
     }
 
 

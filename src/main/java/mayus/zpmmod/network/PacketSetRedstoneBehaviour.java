@@ -1,4 +1,4 @@
-package mayus.zpmmod.networking;
+package mayus.zpmmod.network;
 
 import io.netty.buffer.ByteBuf;
 import mayus.zpmmod.blockControllerLarge.ContainerControllerLarge;

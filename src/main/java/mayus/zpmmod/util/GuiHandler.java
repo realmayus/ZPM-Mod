@@ -1,4 +1,4 @@
-package mayus.zpmmod.proxy;
+package mayus.zpmmod.util;
 
 import mayus.zpmmod.util.IGuiTile;
 import net.minecraft.entity.player.EntityPlayer;

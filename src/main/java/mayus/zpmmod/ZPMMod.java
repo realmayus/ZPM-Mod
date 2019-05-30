@@ -1,21 +1,23 @@
 package mayus.zpmmod;
 
 
-import com.sun.xml.internal.bind.v2.TODO;
-import mayus.zpmmod.proxy.CommonProxy;
+import li.cil.oc.api.Driver;
+import mayus.zpmmod.integration.MainCompatHandler;
+import mayus.zpmmod.network.PacketHandler;
+import mayus.zpmmod.util.GuiHandler;
+import mayus.zpmmod.util.DriverController;
+import mayus.zpmmod.util.LootHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.loot.LootEntry;
-import net.minecraft.world.storage.loot.LootEntryTable;
-import net.minecraft.world.storage.loot.LootPool;
-import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraft.world.storage.loot.LootTableList;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = ZPMMod.MODID, name = ZPMMod.MODNAME, version = ZPMMod.MODVERSION, dependencies = "required-after:forge@[14.23.5.2768,)", useMetadata = true)
@@ -40,20 +42,37 @@ public class ZPMMod {
 
     public static Logger logger;
 
+
+    /**
+     * This is the first initialization event. Register tile entities here.
+     * The registry events below will have fired prior to entry to this method.
+     */
     @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
-        logger = event.getModLog();
-        proxy.preInit(event);
+    public void preinit(FMLPreInitializationEvent event) {
+        PacketHandler.registerMessages();
+        MainCompatHandler.registerTOP();
+
+        MinecraftForge.EVENT_BUS.register(new LootHandler());
+        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/simple_dungeon"));
+        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/stronghold_corridor"));
+        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/spawn_bonus_chest"));
+        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/desert_pyramid"));
     }
 
+    /**
+     * This is the second initialization event. Register custom recipes
+     */
     @Mod.EventHandler
-    public void init(FMLInitializationEvent e) {
-        proxy.init(e);
+    public void init(FMLInitializationEvent event) {
+        NetworkRegistry.INSTANCE.registerGuiHandler(ZPMMod.instance, new GuiHandler());
+        Driver.add(new DriverController());
     }
 
+    /**
+     * This is the final initialization event. Register actions from other mods here
+     */
     @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent e) {
-        proxy.postInit(e);
-    }
+    public void postinit(FMLPostInitializationEvent event) {
 
+    }
 }

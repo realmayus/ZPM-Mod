@@ -2,7 +2,7 @@ package mayus.zpmmod.blockControllerSmall;
 
 
 import mayus.zpmmod.ZPMMod;
-import mayus.zpmmod.api.TOPInfoProvider;
+import mayus.zpmmod.integration.TOPInfoProvider;
 import mayus.zpmmod.util.IGuiTile;
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;

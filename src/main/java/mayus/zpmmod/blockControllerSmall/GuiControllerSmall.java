@@ -1,9 +1,9 @@
 package mayus.zpmmod.blockControllerSmall;
 
 import mayus.zpmmod.ZPMMod;
-import mayus.zpmmod.networking.PacketHandler;
-import mayus.zpmmod.networking.PacketSetRedstoneBehaviour;
-import mayus.zpmmod.networking.PacketToggleEnabled;
+import mayus.zpmmod.network.PacketHandler;
+import mayus.zpmmod.network.PacketSetRedstoneBehaviour;
+import mayus.zpmmod.network.PacketToggleEnabled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.inventory.GuiContainer;

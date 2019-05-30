@@ -1,4 +1,4 @@
-package mayus.zpmmod.api;
+package mayus.zpmmod.integration;
 
 import net.minecraftforge.fml.common.Loader;
 

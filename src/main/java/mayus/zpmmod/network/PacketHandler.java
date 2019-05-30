@@ -1,4 +1,4 @@
-package mayus.zpmmod.networking;
+package mayus.zpmmod.network;
 
 import mayus.zpmmod.ZPMMod;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
