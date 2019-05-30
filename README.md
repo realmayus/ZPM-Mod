@@ -29,7 +29,7 @@ Example for the small controller:
 ```lua
 local component = require("component")
 
-local controller = component.controllerlarge
+local controller = component.controllersmall
 
 print(controller.getZpmEnergy()) -- No index needed as this returns just an int, no table.
 ```
