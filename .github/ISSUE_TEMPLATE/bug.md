@@ -11,7 +11,12 @@ assignees: MayusYT
 
 
 **Steps to reproduce**
+1. 
+2. 
+3. 
 
+**Server/Client Log**
+<!---Please use proper code formatting!-->
 
 **Misc**
 
