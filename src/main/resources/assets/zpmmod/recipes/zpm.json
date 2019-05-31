@@ -1,6 +1,9 @@
 {
   "result": {
-    "item": "zpm"
+    "item": "zpm",
+    "nbt": {
+        "Energy": 2147483647
+    }
   },
   "type": "forge:ore_shapeless",
  "ingredients": [

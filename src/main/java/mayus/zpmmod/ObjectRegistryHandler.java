@@ -7,11 +7,9 @@ import mayus.zpmmod.blockControllerSmall.TileControllerSmall;
 import mayus.zpmmod.craftingItems.*;
 import mayus.zpmmod.itemZPM.ItemZPM;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockWall;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -52,8 +50,8 @@ public class ObjectRegistryHandler {
      */
     @SubscribeEvent
     public static void addBlocks(RegistryEvent.Register<Block> event) {
-        event.getRegistry().register(new BlockControllerLarge().setRegistryName(ZPMMod.MODID, "controller_large"));
-        event.getRegistry().register(new BlockControllerSmall().setRegistryName(ZPMMod.MODID, "controller_small"));
+        event.getRegistry().register(new BlockControllerLarge().setRegistryName(ZPMMod.MODID, "controller_large").setCreativeTab(ZPMMod.creativeTab));
+        event.getRegistry().register(new BlockControllerSmall().setRegistryName(ZPMMod.MODID, "controller_small").setCreativeTab(ZPMMod.creativeTab));
 
         GameRegistry.registerTileEntity(TileControllerLarge.class, new ResourceLocation("te_controller_large"));
         GameRegistry.registerTileEntity(TileControllerSmall.class, new ResourceLocation("te_controller_small"));
@@ -72,5 +70,6 @@ public class ObjectRegistryHandler {
 
         ZPMMod.getLOGGER().info("Registered models");
     }
+
 
 }

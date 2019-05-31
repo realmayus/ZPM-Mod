@@ -12,7 +12,6 @@ import mayus.zpmmod.util.MyEnergyStorage;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -28,7 +27,8 @@ import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import javax.annotation.Nonnull;
 import java.util.HashMap;
 
-public class TileControllerLarge extends TileEntity implements IGuiTile, ITickable, SimpleComponent {
+
+public class TileControllerLarge extends TileEntity implements IGuiTile, ITickable {
 
     /**
      * 0 = Ignore Redstone
@@ -80,7 +80,7 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
         return !this.inputHandler.getStackInSlot(slot).isEmpty();
     }
 
-    //n00b method
+
     public int getZPMcount() {
         int i = 0;
         if(doesContainZPM(0)) i++;
@@ -216,31 +216,4 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
         compound.setInteger("redstone", redstoneBehaviour);
     }
 
-    @Override
-    public String getComponentName() {
-        return "controllerlarge";
-    }
-
-    @Callback(doc = "function():table - Get information about the installed ZPMs in the controller.")
-    public Object[] getZpmEnergy(final Context context, Arguments arguments)
-    {
-        return new Object[]{new HashMap<Integer, Object>() {
-            {
-                put(1, getEnergyOfZPM(0));
-                put(2, getEnergyOfZPM(1));
-                put(3, getEnergyOfZPM(2));
-            }
-
-        }
-        };
-    }
-
-    @Callback
-    public Object[] setEnabled(final Context context, Arguments arguments){
-        if(arguments.isBoolean(0)) {
-            isEnabled = arguments.checkBoolean(0);
-        }
-
-        return new Object[]{ true };
-    }
 }

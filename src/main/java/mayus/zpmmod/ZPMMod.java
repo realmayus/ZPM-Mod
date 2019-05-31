@@ -65,7 +65,7 @@ public class ZPMMod {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         NetworkRegistry.INSTANCE.registerGuiHandler(ZPMMod.instance, new GuiHandler());
-//        Driver.add(new DriverController());
+        Driver.add(new DriverController());
     }
 
     /**
