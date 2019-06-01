@@ -86,8 +86,9 @@ public class ItemZPM extends Item {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(new TextComponentTranslation("item.zpmmod.tooltip.storedEnergy").getFormattedText() + " " + getEnergyStorage(stack).getEnergyStored() + " RF");
-        tooltip.add(new TextComponentTranslation("item.zpmmod.tooltip.controllerInstructions").getFormattedText());
+        tooltip.add(I18n.format("item.zpmmod.tooltip.storedEnergy") + " " + getEnergyStorage(stack).getEnergyStored() + " RF");
+        tooltip.add(I18n.format("item.zpmmod.tooltip.controllerInstructions"));
     }
 }
