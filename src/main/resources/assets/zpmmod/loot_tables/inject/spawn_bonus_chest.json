@@ -7,7 +7,13 @@
         {
           "type": "item",
           "name": "zpmmod:zpm",
-          "weight": 8
+          "weight": 5,
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{Energy:2147483647}"
+            }
+          ]
         },
         {
           "type": "item",
@@ -17,11 +23,11 @@
         {
           "type": "item",
           "name": "zpmmod:controller_large",
-          "weight": 80
+          "weight": 8
         },
         {
           "type": "empty",
-          "weight": 10
+          "weight": 50
         }
       ]
     }

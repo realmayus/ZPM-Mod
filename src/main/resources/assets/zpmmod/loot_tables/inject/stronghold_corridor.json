@@ -1,43 +1,35 @@
 {
-
-  "host": "0.0.0.0",
-  "port": 7777,
-
-  "keyLength": 10,
-
-  "maxLength": 400000,
-
-  "staticMaxAge": 86400,
-
-  "recompressStaticAssets": true,
-
-  "logging": [
+  "pools": [
     {
-      "level": "verbose",
-      "type": "Console",
-      "colorize": true
+      "name": "main",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "zpmmod:zpm",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{Energy:2147483647}"
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "zpmmod:controller_small",
+          "weight": 30
+        },
+        {
+          "type": "item",
+          "name": "zpmmod:controller_large",
+          "weight": 20
+        },
+        {
+          "type": "empty",
+          "weight": 60
+        }
+      ]
     }
-  ],
-
-  "keyGenerator": {
-    "type": "phonetic"
-  },
-
-  "rateLimits": {
-    "categories": {
-      "normal": {
-        "totalRequests": 500,
-        "every": 60000
-      }
-    }
-  },
-  "storage": {
-    "type": "memcached",
-    "host": "127.0.0.1",
-    "port": 11211
-  },
-  "documents": {
-    "about": "./about.md"
-  }
-
+  ]
 }
