@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -86,7 +87,7 @@ public class ItemZPM extends Item {
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(I18n.format("item.zpmmod.tooltip.storedEnergy") + " " + getEnergyStorage(stack).getEnergyStored() + " RF");
-        tooltip.add(I18n.format("item.zpmmod.tooltip.controllerInstructions"));
+        tooltip.add(new TextComponentTranslation("item.zpmmod.tooltip.storedEnergy").getFormattedText() + " " + getEnergyStorage(stack).getEnergyStored() + " RF");
+        tooltip.add(new TextComponentTranslation("item.zpmmod.tooltip.controllerInstructions").getFormattedText());
     }
 }

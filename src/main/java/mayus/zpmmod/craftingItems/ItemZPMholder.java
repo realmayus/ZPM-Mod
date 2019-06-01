@@ -4,6 +4,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -18,6 +19,6 @@ public class ItemZPMholder extends Item {
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(I18n.format("item.zpmmod.tooltip.craftingItem"));
+        tooltip.add(new TextComponentTranslation("item.zpmmod.tooltip.craftingItem").getFormattedText());
     }
 }
