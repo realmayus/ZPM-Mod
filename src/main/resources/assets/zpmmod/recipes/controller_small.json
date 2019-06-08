@@ -1,0 +1,27 @@
+{
+  "result": {
+    "item": "controller_small"
+  },
+  "pattern": [
+    "iHi",
+    "iBi",
+    "ggg"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "g": {
+      "item": "minecraft:gold_ingot"
+    },
+    "H": {
+      "item": "zpmmod:zpm_holder"
+    },
+    "i": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    },
+    "B": {
+      "type": "forge:ore_dict",
+      "ore": "blockIron"
+    }
+  }
+}

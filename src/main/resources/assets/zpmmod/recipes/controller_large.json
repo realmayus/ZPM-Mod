@@ -1,0 +1,26 @@
+{
+  "result": {
+    "item": "controller_large"
+  },
+  "pattern": [
+    "gHg",
+    "HiH",
+    "gEg"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "g": {
+      "item": "minecraft:gold_ingot"
+    },
+    "H": {
+      "item": "zpmmod:zpm_holder"
+    },
+    "i": {
+      "type": "forge:ore_dict",
+      "ore": "blockIron"
+    },
+    "E": {
+     "item": "minecraft:ender_eye"
+    }
+  }
+}
