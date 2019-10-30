@@ -1,7 +1,6 @@
 # ZPM Mod
 [![Build Status](https://travis-ci.org/MayusYT/ZPM-Mod.png)](https://travis-ci.org/MayusYT/ZPM-Mod)
 
-### There's a 1.14.2 branch now! This branch is **1.12**
 
 ZPM-Mod is a power generating Mod. You can find (and craft) Zero Point Modules and extract Energy from them. Huge amounts of energy!
 
