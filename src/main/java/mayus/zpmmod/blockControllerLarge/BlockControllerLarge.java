@@ -144,6 +144,7 @@ public class BlockControllerLarge extends Block implements ITileEntityProvider, 
                     .text(TextFormatting.GREEN + "Enabled");
             else probeInfo.horizontal()
                     .text(TextFormatting.RED + "Disabled");
+            probeInfo.horizontal().text(getFriendlyRedstoneBehaviourNames(((TileControllerLarge) te).redstoneBehaviour));
             if(tileControllerLarge.doesContainZPM()) {
                 probeInfo.horizontal(probeInfo.defaultLayoutStyle().borderColor(0xffff0000))
                         .text(tileControllerLarge.getZPMcount() + "/3 ZPMs installed")
@@ -151,6 +152,19 @@ public class BlockControllerLarge extends Block implements ITileEntityProvider, 
                         .item(tileControllerLarge.inputHandler.getStackInSlot(1))
                         .item(tileControllerLarge.inputHandler.getStackInSlot(2));
             }
+        }
+    }
+
+    private String getFriendlyRedstoneBehaviourNames(int redstoneBehaviour) {
+        switch (redstoneBehaviour) {
+            case 0:
+                return "Ignore";
+            case 1:
+                return "Active on redstone";
+            case 2:
+                return "Not active on redstone";
+            default:
+                return "Ignore";
         }
     }
 

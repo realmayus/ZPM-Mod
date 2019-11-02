@@ -1,4 +1,4 @@
-package mayus.zpmmod.util;
+package mayus.zpmmod.integration;
 
 import li.cil.oc.api.Network;
 import li.cil.oc.api.driver.NamedBlock;

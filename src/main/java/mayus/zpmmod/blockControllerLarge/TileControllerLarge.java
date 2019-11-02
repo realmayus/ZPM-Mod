@@ -25,7 +25,6 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
 
 
 public class TileControllerLarge extends TileEntity implements IGuiTile, ITickable {

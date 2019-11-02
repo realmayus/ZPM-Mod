@@ -1,17 +1,17 @@
 package mayus.zpmmod;
 
 
-import li.cil.oc.api.Driver;
-import mayus.zpmmod.integration.MainCompatHandler;
+import mayus.zpmmod.integration.TOPIntegrationHandler;
+import mayus.zpmmod.integration.OCIntegrationHandler;
 import mayus.zpmmod.network.PacketHandler;
 import mayus.zpmmod.util.GuiHandler;
-import mayus.zpmmod.util.DriverController;
 import mayus.zpmmod.util.LootHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -50,13 +50,8 @@ public class ZPMMod {
     @Mod.EventHandler
     public void preinit(FMLPreInitializationEvent event) {
         PacketHandler.registerMessages();
-        MainCompatHandler.registerIntegrations();
+        TOPIntegrationHandler.registerIntegration();
 
-        MinecraftForge.EVENT_BUS.register(new LootHandler());
-        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/simple_dungeon"));
-        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/stronghold_corridor"));
-        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/spawn_bonus_chest"));
-        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/desert_pyramid"));
     }
 
     /**
@@ -65,7 +60,16 @@ public class ZPMMod {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         NetworkRegistry.INSTANCE.registerGuiHandler(ZPMMod.instance, new GuiHandler());
-        Driver.add(new DriverController());
+        if(Loader.isModLoaded("opencomputers")) {
+            OCIntegrationHandler.registerIntegration();
+        }
+
+        MinecraftForge.EVENT_BUS.register(new LootHandler());
+        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/simple_dungeon"));
+        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/stronghold_corridor"));
+        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/spawn_bonus_chest"));
+        LootTableList.register(new ResourceLocation(ZPMMod.MODID, "inject/desert_pyramid"));
+
     }
 
     /**

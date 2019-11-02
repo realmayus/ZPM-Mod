@@ -43,7 +43,7 @@ repositories {
     }
 }
 
-version = "0.0.2"
+version = "1.0"
 group= "mayus.zpmmod"
 archivesBaseName = "zpmmod"
 
@@ -51,7 +51,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 minecraft {
-    version = "1.12.2-14.23.5.2784"
+    version = "1.12.2-14.23.5.2768"
     runDir = "run"
     mappings = "stable_39"
     useDepAts = true
