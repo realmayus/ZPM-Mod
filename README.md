@@ -36,4 +36,3 @@ These are all available methods:
 More information coming soon!
 
 My Website: https://mayus.me
-<iframe src="https://discordapp.com/widget?id=564185633984348170&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
