@@ -73,7 +73,9 @@ public class ItemZPM extends Item {
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> list) {
         if (isInCreativeTab(tab)) {
             ItemStack is = new ItemStack(this);
+            is.getCapability(CapabilityEnergy.ENERGY, null).receiveEnergy(0, false);
             list.add(is);
+
             is = new ItemStack(this);
             is.getCapability(CapabilityEnergy.ENERGY, null).receiveEnergy(Integer.MAX_VALUE, false);
             list.add(is);

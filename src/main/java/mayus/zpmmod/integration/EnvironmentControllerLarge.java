@@ -67,6 +67,11 @@ public class EnvironmentControllerLarge extends AbstractZPMEnvironment<TileContr
         return new Object[] { getFriendlyRedstoneBehaviourNames(tile.redstoneBehaviour) };
     }
 
+    @Callback
+    public Object[] getMaxEnergy(final Context context, Arguments arguments) {
+        return new Object[] { Integer.MAX_VALUE };
+    }
+
     private String getFriendlyRedstoneBehaviourNames(int redstoneBehaviour) {
         switch (redstoneBehaviour) {
             case 0:
