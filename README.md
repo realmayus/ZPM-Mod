@@ -30,6 +30,7 @@ These are all available methods:
 * `getZpmEnergy()[1]` - returns the energy of the specified ZPM in the controller (indexes in lua start at 1!)
 * `getEnabled()` - returns a boolean that tells you whether the controller is enabled or not
 * `getRedstoneBehaviour()` - returns a string that tells you the current redstone behaviour of the controller.
+* `getMaxEnergy()` - returns the max energy that a ZPM can have
 
 *Small ZPM controllers don't have OpenComputers Integration and won't ever have it.*
 
