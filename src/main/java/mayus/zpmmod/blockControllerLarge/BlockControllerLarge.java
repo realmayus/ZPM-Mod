@@ -15,6 +15,7 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
@@ -94,9 +95,7 @@ public class BlockControllerLarge extends Block implements ITileEntityProvider, 
             return false;
         }
         if(!player.isSneaking()) {
-            if(facing == EnumFacing.UP) {
-                player.openGui(ZPMMod.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
-            }
+             player.openGui(ZPMMod.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
         } else {
             return false;
         }
@@ -141,13 +140,13 @@ public class BlockControllerLarge extends Block implements ITileEntityProvider, 
             TileControllerLarge tileControllerLarge = (TileControllerLarge) te;
             // First add a horizontal line showing the clock item followed by current contents of the counter in the tile entity
             if (((TileControllerLarge) te).isEnabled) probeInfo.horizontal()
-                    .text(TextFormatting.GREEN + "Enabled");
+                    .text(TextFormatting.GREEN + I18n.format("integrations.enabled"));
             else probeInfo.horizontal()
-                    .text(TextFormatting.RED + "Disabled");
+                    .text(TextFormatting.RED +  I18n.format("integrations.disabled"));
             probeInfo.horizontal().text(getFriendlyRedstoneBehaviourNames(((TileControllerLarge) te).redstoneBehaviour));
             if(tileControllerLarge.doesContainZPM()) {
                 probeInfo.horizontal(probeInfo.defaultLayoutStyle().borderColor(0xffff0000))
-                        .text(tileControllerLarge.getZPMcount() + "/3 ZPMs installed")
+                        .text(tileControllerLarge.getZPMcount() + I18n.format("integrations.maxInstalledZPMsLarge"))
                         .item(tileControllerLarge.inputHandler.getStackInSlot(0))
                         .item(tileControllerLarge.inputHandler.getStackInSlot(1))
                         .item(tileControllerLarge.inputHandler.getStackInSlot(2));
@@ -158,13 +157,13 @@ public class BlockControllerLarge extends Block implements ITileEntityProvider, 
     private String getFriendlyRedstoneBehaviourNames(int redstoneBehaviour) {
         switch (redstoneBehaviour) {
             case 0:
-                return "Ignore";
+                return I18n.format("tile.zpmmod.tooltip.active_on_signal");
             case 1:
-                return "Active on redstone";
+                return I18n.format("tile.zpmmod.tooltip.inactive_on_signal");
             case 2:
-                return "Not active on redstone";
+                return I18n.format("tile.zpmmod.tooltip.ignore_signal");
             default:
-                return "Ignore";
+                return I18n.format("tile.zpmmod.tooltip.active_on_signal");
         }
     }
 

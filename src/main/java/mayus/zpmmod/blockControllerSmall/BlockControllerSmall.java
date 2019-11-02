@@ -13,6 +13,7 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
@@ -97,9 +98,7 @@ public class BlockControllerSmall extends Block implements TOPInfoProvider {
             return false;
         }
         if(!player.isSneaking()) {
-            if(facing == EnumFacing.UP) {
-                player.openGui(ZPMMod.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
-            }
+            player.openGui(ZPMMod.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
         } else {
             return false;
         }
@@ -143,12 +142,12 @@ public class BlockControllerSmall extends Block implements TOPInfoProvider {
             TileControllerSmall tileControllerSmall = (TileControllerSmall) te;
             // First add a horizontal line showing the clock item followed by current contents of the counter in the tile entity
             if (tileControllerSmall.isEnabled) probeInfo.horizontal()
-                    .text(TextFormatting.GREEN + "Enabled");
+                    .text(TextFormatting.GREEN + I18n.format("integrations.enabled"));
             else probeInfo.horizontal()
-                    .text(TextFormatting.RED + "Disabled");
+                    .text(TextFormatting.RED + I18n.format("integrations.disabled"));
             if(!tileControllerSmall.inputHandler.getStackInSlot(0).isEmpty()) {
                 probeInfo.horizontal(probeInfo.defaultLayoutStyle().borderColor(0xffff0000))
-                        .text("1/1 ZPMs installed")
+                        .text(I18n.format("integrations.maxInstalledZPMsSmall"))
                         .item(tileControllerSmall.inputHandler.getStackInSlot(0));
             }
         }

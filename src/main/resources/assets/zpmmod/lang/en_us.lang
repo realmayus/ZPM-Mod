@@ -24,3 +24,10 @@ item.hardened_dimensional_star.name=Hardened Dimensional Star
 item.zpm_casing.name=ZPM Casing
 item.zpm_core.name=ZPM Core
 item.zpm_holder.name=ZPM Holder
+
+
+# Integrations
+integrations.enabled=Enabled
+integrations.disabled=Disabled
+integrations.maxInstalledZPMsLarge=/3 ZPMs installed
+integrations.maxInstalledZPMsSmall=1/1 ZPMs installed
