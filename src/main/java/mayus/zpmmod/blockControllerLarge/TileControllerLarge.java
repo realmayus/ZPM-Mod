@@ -194,25 +194,27 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
-        super.readFromNBT(compound);
-        readRestorableFromNBT(compound);
-    }
-
-    public void readRestorableFromNBT(NBTTagCompound compound) {
         isEnabled = compound.getBoolean("enabled");
         redstoneBehaviour = compound.getInteger("redstone");
+        if(compound.hasKey("inputhandler")) {
+            inputHandler.deserializeNBT(compound.getCompoundTag("inputhandler"));
+        }
+        if(compound.hasKey("outputhandler")) {
+            outputHandler.deserializeNBT(compound.getCompoundTag("outputhandler"));
+        }
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
-        writeRestorableToNBT(compound);
-        return compound;
-    }
-
-    public void writeRestorableToNBT(NBTTagCompound compound) {
         compound.setBoolean("enabled", isEnabled);
         compound.setInteger("redstone", redstoneBehaviour);
-    }
+        if(inputHandler != null) {
+            compound.setTag("inputhandler", inputHandler.serializeNBT());
 
+        }
+        if(outputHandler != null) {
+            compound.setTag("outputhandler", outputHandler.serializeNBT());
+        }
+        return compound;
+    }
 }

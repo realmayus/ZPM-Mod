@@ -142,7 +142,7 @@ public class BlockControllerLarge extends Block implements ITileEntityProvider, 
             if (((TileControllerLarge) te).isEnabled) probeInfo.horizontal()
                     .text(TextFormatting.GREEN + I18n.format("integrations.enabled"));
             else probeInfo.horizontal()
-                    .text(TextFormatting.RED +  I18n.format("integrations.disabled"));
+                    .text(TextFormatting.RED + I18n.format("integrations.disabled"));
             probeInfo.horizontal().text(getFriendlyRedstoneBehaviourNames(((TileControllerLarge) te).redstoneBehaviour));
             if(tileControllerLarge.doesContainZPM()) {
                 probeInfo.horizontal(probeInfo.defaultLayoutStyle().borderColor(0xffff0000))

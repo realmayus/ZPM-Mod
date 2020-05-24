@@ -15,33 +15,11 @@ buildscript {
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle.forge'
-
-repositories {
-    
-    // Open Computers
-    maven {
-        url = "http://maven.cil.li/"
-    }
-    maven { // The repo from which to get waila
-        name "Mobius Repo"
-        url "http://tehnut.info/maven"
-    }
-    maven { // JEI
-        url "http://dvs1.progwml6.com/files/maven"
-    }
-    maven { // IntWheel
-        url "http://maven.k-4u.nl"
-    }
-    maven { // TOP
-        name 'tterrag maven'
-        url "http://maven.tterrag.com/"
-    }
-    maven {
-        name = "CoFH Maven"
-        url = "http://maven.covers1624.net"
-    }
+plugins {
+    id "com.wynprice.cursemaven" version "2.1.1"
 }
+
+apply plugin: 'net.minecraftforge.gradle.forge'
 
 version = "1.2"
 group= "mayus.zpmmod"
@@ -51,19 +29,15 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 minecraft {
-    version = "1.12.2-14.23.5.2768"
+    version = "1.12.2-14.23.5.2847"
     runDir = "run"
     mappings = "stable_39"
     useDepAts = true
 }
 
 dependencies {
-    compile "li.cil.oc:OpenComputers:MC1.12.2-1.7.+:api"
-    deobfCompile "mezz.jei:jei_1.12.2:4.14.4.267"
-    deobfCompile "mcp.mobius.waila:Hwyla:1.8.18-B32_1.12:api"
-    deobfCompile "cofh:RedstoneFlux:1.12-2.0.0.1:universal"
-    deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:1.12-1.4.14-7"
-    deobfCompile "com.github.mcjty:intwheel:1.12-1.2.7"
+    deobfCompile "curse.maven:opencomputers:2828357"
+    deobfCompile "curse.maven:theoneprobe:2667280"
 }
 
 processResources
