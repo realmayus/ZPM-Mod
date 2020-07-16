@@ -5,7 +5,7 @@ ZPM-Mod is a power generating Mod. You can find (and craft) Zero Point Modules a
 ### Feature list
 * TheOneProbe Integration
 * OpenComputers Integration
-* Automation through pipes and redstone modes
+* Automation through pipes and redstone modes (**use advanced item filters (NBT match: on) when you only want to extract empty ZPMs!**)
 
 ### OpenComputers Integration
 You can query the energy amount left in a ZPM.
