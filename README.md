@@ -36,4 +36,4 @@ These are all available methods:
 
 More information coming soon!
 
-My Website: https://mayus.me
+My Website: https://realmayus.me
