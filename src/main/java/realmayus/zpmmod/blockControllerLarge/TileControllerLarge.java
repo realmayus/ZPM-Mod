@@ -198,7 +198,6 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
         isEnabled = compound.getBoolean("enabled");
         redstoneBehaviour = compound.getInteger("redstone");
         if (compound.hasKey("itemsIN"))  {
-
             inputHandler.deserializeNBT((NBTTagCompound) compound.getTag("itemsIN"));
         }
         if (compound.hasKey("itemsOUT"))  {
@@ -212,9 +211,7 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
         compound.setBoolean("enabled", isEnabled);
         compound.setInteger("redstone", redstoneBehaviour);
         if (inputHandler != null) {
-            System.out.println("inputhandler not null");
             if (inputHandler.serializeNBT() != null) {
-                System.out.println("serializeNBT not null");
                 compound.setTag("itemsIN", inputHandler.serializeNBT());
             }
         }
