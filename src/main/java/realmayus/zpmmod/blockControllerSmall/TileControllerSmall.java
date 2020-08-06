@@ -158,13 +158,10 @@ public class TileControllerSmall extends TileEntity implements IGuiTile, ITickab
         }
     };
 
-
-
-
     /**
      * Handler for the Output Slots
      */
-    private ItemStackHandler outputHandler = new ItemStackHandler(1) {
+    private ItemStackHandler outputHandler = new ItemStackHandler(5) {
         @Override
         protected void onContentsChanged(int slot) {
             TileControllerSmall.this.markDirty();
@@ -173,26 +170,62 @@ public class TileControllerSmall extends TileEntity implements IGuiTile, ITickab
 
     private CombinedInvWrapper combinedHandler = new CombinedInvWrapper(inputHandler, outputHandler);
 
+
+
+//    @Override
+//    public void readFromNBT(NBTTagCompound compound) {
+//        super.readFromNBT(compound);
+//        readRestorableFromNBT(compound);
+//    }
+//
+//    public void readRestorableFromNBT(NBTTagCompound compound) {
+//    }
+//
+//    @Override
+//    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+//        super.writeToNBT(compound);
+//        writeRestorableToNBT(compound);
+//        return compound;
+//    }
+//
+//    public void writeRestorableToNBT(NBTTagCompound compound) {
+//    }
+
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        readRestorableFromNBT(compound);
-    }
-
-    public void readRestorableFromNBT(NBTTagCompound compound) {
-        isEnabled = compound.getBoolean("enabled");
-        redstoneBehaviour = compound.getInteger("redstone");
+        if (compound.hasKey("enabled")) {
+            isEnabled = compound.getBoolean("enabled");
+        }
+        if (compound.hasKey("redstone")) {
+            redstoneBehaviour = compound.getInteger("redstone");
+        }
+        if (compound.hasKey("itemsIN"))  {
+            inputHandler.deserializeNBT((NBTTagCompound) compound.getTag("itemsIN"));
+        }
+        if (compound.hasKey("itemsOUT"))  {
+            outputHandler.deserializeNBT((NBTTagCompound) compound.getTag("itemsOUT"));
+        }
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
-        writeRestorableToNBT(compound);
+        compound.setBoolean("enabled", isEnabled);
+        compound.setInteger("redstone", redstoneBehaviour);
+        if (inputHandler != null) {
+            if (inputHandler.serializeNBT() != null) {
+                compound.setTag("itemsIN", inputHandler.serializeNBT());
+            }
+        }
+        if (outputHandler != null) {
+            if (outputHandler.serializeNBT() != null) {
+                compound.setTag("itemsOUT", outputHandler.serializeNBT());
+            }
+        }
         return compound;
     }
 
-    public void writeRestorableToNBT(NBTTagCompound compound) {
-        compound.setBoolean("enabled", isEnabled);
-        compound.setInteger("redstone", redstoneBehaviour);
-    }
+
+
 }

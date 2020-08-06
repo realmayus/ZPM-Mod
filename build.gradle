@@ -38,6 +38,7 @@ minecraft {
 dependencies {
     deobfCompile "curse.maven:opencomputers:2828357"
     deobfCompile "curse.maven:theoneprobe:2667280"
+    deobfCompile "curse.maven:enderio:2989201"
 }
 
 processResources

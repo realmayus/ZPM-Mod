@@ -194,26 +194,36 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
         isEnabled = compound.getBoolean("enabled");
         redstoneBehaviour = compound.getInteger("redstone");
-        if(compound.hasKey("inputhandler")) {
-            inputHandler.deserializeNBT(compound.getCompoundTag("inputhandler"));
+        if (compound.hasKey("itemsIN"))  {
+
+            inputHandler.deserializeNBT((NBTTagCompound) compound.getTag("itemsIN"));
         }
-        if(compound.hasKey("outputhandler")) {
-            outputHandler.deserializeNBT(compound.getCompoundTag("outputhandler"));
+        if (compound.hasKey("itemsOUT"))  {
+            outputHandler.deserializeNBT((NBTTagCompound) compound.getTag("itemsOUT"));
         }
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
         compound.setBoolean("enabled", isEnabled);
         compound.setInteger("redstone", redstoneBehaviour);
-        if(inputHandler != null) {
-            compound.setTag("inputhandler", inputHandler.serializeNBT());
-
+        if (inputHandler != null) {
+            System.out.println("inputhandler not null");
+            if (inputHandler.serializeNBT() != null) {
+                System.out.println("serializeNBT not null");
+                compound.setTag("itemsIN", inputHandler.serializeNBT());
+            }
         }
-        if(outputHandler != null) {
-            compound.setTag("outputhandler", outputHandler.serializeNBT());
+        if (outputHandler != null) {
+            System.out.println("outputhandler not null");
+            if (outputHandler.serializeNBT() != null) {
+                System.out.println("serializeNBT not null");
+                compound.setTag("itemsOUT", outputHandler.serializeNBT());
+            }
         }
         return compound;
     }
