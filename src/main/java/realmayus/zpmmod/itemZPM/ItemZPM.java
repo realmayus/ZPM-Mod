@@ -1,5 +1,6 @@
 package realmayus.zpmmod.itemZPM;
 
+import realmayus.zpmmod.ZPMConfig;
 import realmayus.zpmmod.util.EnergyCapabilityProvider;
 import realmayus.zpmmod.util.EnergyStorageItem;
 import net.minecraft.client.resources.I18n;
@@ -41,7 +42,7 @@ public class ItemZPM extends Item {
 
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, NBTTagCompound nbt) {
-        return new EnergyCapabilityProvider(new EnergyStorageItem(stack, Integer.MAX_VALUE));
+        return new EnergyCapabilityProvider(new EnergyStorageItem(stack, ZPMConfig.STORED_ZPM_ENERGY));
     }
 
     public IEnergyStorage getEnergyStorage(ItemStack stack) {
@@ -76,7 +77,7 @@ public class ItemZPM extends Item {
             list.add(is);
 
             is = new ItemStack(this);
-            is.getCapability(CapabilityEnergy.ENERGY, null).receiveEnergy(Integer.MAX_VALUE, false);
+            is.getCapability(CapabilityEnergy.ENERGY, null).receiveEnergy(ZPMConfig.STORED_ZPM_ENERGY, false);
             list.add(is);
         }
     }

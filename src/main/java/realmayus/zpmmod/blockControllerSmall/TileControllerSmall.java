@@ -82,7 +82,8 @@ public class TileControllerSmall extends TileEntity implements IGuiTile, ITickab
                 if (tileEntity != null && tileEntity.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())) {
                     IEnergyStorage handler = tileEntity.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
                     if (handler != null && handler.canReceive()) {
-                        int accepted = handler.receiveEnergy(energyStorage.getEnergyStored(), false);
+                        int outputPower = Math.min(energyStorage.getEnergyStored(), ZPMConfig.EMIT_ENERGY_MAXIMUM);  // cap power output at 1 mil RF/t
+                        int accepted = handler.receiveEnergy(outputPower, false);
                         energyStorage.extractEnergy(accepted, false);
                         if (energyStorage.getEnergyStored() <= 0) {
                             break;
