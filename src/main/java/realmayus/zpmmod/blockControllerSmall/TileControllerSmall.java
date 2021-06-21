@@ -5,9 +5,7 @@ import realmayus.zpmmod.ZPMConfig;
 import realmayus.zpmmod.itemZPM.ItemZPM;
 import realmayus.zpmmod.util.IGuiTile;
 import realmayus.zpmmod.util.MyEnergyStorage;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -93,16 +91,6 @@ public class TileControllerSmall extends TileEntity implements IGuiTile, ITickab
             }
             markDirty();
         }
-    }
-
-    @Override
-    public Container createContainer(EntityPlayer player) {
-        return new ContainerControllerSmall(player.inventory, this);
-    }
-
-    @Override
-    public GuiContainer createGui(EntityPlayer player) {
-        return new GuiControllerSmall(this, new ContainerControllerSmall(player.inventory, this));
     }
 
     /**

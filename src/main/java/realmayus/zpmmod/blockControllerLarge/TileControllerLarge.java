@@ -1,17 +1,11 @@
 package realmayus.zpmmod.blockControllerLarge;
 
 
-import li.cil.oc.api.machine.Arguments;
-import li.cil.oc.api.machine.Callback;
-import li.cil.oc.api.machine.Context;
-import li.cil.oc.api.network.SimpleComponent;
 import realmayus.zpmmod.ZPMConfig;
 import realmayus.zpmmod.itemZPM.ItemZPM;
 import realmayus.zpmmod.util.IGuiTile;
 import realmayus.zpmmod.util.MyEnergyStorage;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -98,13 +92,14 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
 
     private void sendEnergy(IEnergyStorage energyStorage) {
         if (energyStorage.getEnergyStored() > 0) {
+            int outputPower = Math.min(energyStorage.getEnergyStored(), ZPMConfig.EMIT_ENERGY_MAXIMUM);  // cap power output at 1 mil RF/t
             for (EnumFacing facing : EnumFacing.VALUES) {
                 TileEntity tileEntity = world.getTileEntity(pos.offset(facing));
                 if (tileEntity != null && tileEntity.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())) {
                     IEnergyStorage handler = tileEntity.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
                     if (handler != null && handler.canReceive()) {
-                        int outputPower = Math.min(energyStorage.getEnergyStored(), ZPMConfig.EMIT_ENERGY_MAXIMUM);  // cap power output at 1 mil RF/t
                         int accepted = handler.receiveEnergy(outputPower, false);
+                        outputPower = outputPower - accepted;
                         energyStorage.extractEnergy(accepted, false);
                         if (energyStorage.getEnergyStored() <= 0) {
                             break;
@@ -114,17 +109,6 @@ public class TileControllerLarge extends TileEntity implements IGuiTile, ITickab
             }
             markDirty();
         }
-    }
-
-
-    @Override
-    public Container createContainer(EntityPlayer player) {
-        return new ContainerControllerLarge(player.inventory, this);
-    }
-
-    @Override
-    public GuiContainer createGui(EntityPlayer player) {
-        return new GuiControllerLarge(this, new ContainerControllerLarge(player.inventory, this));
     }
 
     /**
