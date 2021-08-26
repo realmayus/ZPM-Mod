@@ -1,6 +1,6 @@
 # ZPM Mod
 
-ZPM-Mod is a power generating Mod. You can find (and craft) Zero Point Modules and extract Energy from them. Huge amounts of energy!
+ZPM-Mod is a power generation mod. You can find (and craft) Zero Point Modules (ZPMs) and extract energy from them.
 
 ### Feature list
 * TheOneProbe Integration
@@ -9,8 +9,8 @@ ZPM-Mod is a power generating Mod. You can find (and craft) Zero Point Modules a
 
 ### OpenComputers Integration
 You can query the energy amount left in a ZPM.
-To do that, place an OpenComputers Adapter next to a **large** ZPM Controller.
-Then, you can execute the following code on the computer that is connected to the Adapter.
+To do that, place an OpenComputers a dapter next to a **large** ZPM Controller.
+Then, you can execute the following code on the computer that is connected to the adapter.
 
 Note: You can get the name of the component (it's "controllerlarge" below) if you execute the command `components` on the computer.
 
@@ -36,4 +36,3 @@ These are all available methods:
 
 More information coming soon!
 
-My Website: https://realmayus.me
